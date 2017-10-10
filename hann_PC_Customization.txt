@@ -1,0 +1,23 @@
+Set 1:
+CPU: Intel Core i5-7500 - 4tr850
+Mainboard: Asrock B250M-Pro4 Socket 1151 - 2tr1
+VGA: MSI GTX 1050Ti 4GT OCV1
+Ram: Gskill Flare 8Gbx1 24000MHz Cas 16 - 1tr7
+HDD: Western Digital Caviar Blue 1TB - 64Mb Cache - 7200rpm - Sata 3 - 1tr150
+PSU: Andyson M5+ 450W Japan Cap - Single Rail - 80 Plus Bronze - 850k
+Case: Aigo Patriot Mid Tower Blue LED - 1tr4 (Đã mua)
+
+Total: 16tr250
+
+
+Set 2:
+CPU: AMD Ryzen 5 1400 - 4tr400
+Mainboard: Asrock B350M-Pro4 Socket AM4 - 2tr350
+VGA: MSI GTX 1050Ti 4GT OCV1
+Ram: Gskill Flare 8Gbx1 24000MHz Cas 16 - 1tr7
+HDD: Western Digital Caviar Blue 1TB - 64Mb Cache - 7200rpm - Sata 3 - 1tr150
+PSU: Andyson M5+ 450W Japan Cap - Single Rail - 80 Plus Bronze - 850k
+Case: Aigo Patriot Mid Tower Blue LED - 1tr4 (Đã mua)
+
+Total: 16tr50
+
