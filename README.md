@@ -1,0 +1,2 @@
+# finamana
+Finance Manager project 
