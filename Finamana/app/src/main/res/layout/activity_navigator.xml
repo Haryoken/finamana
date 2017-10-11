@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hann.project.finamana.NavigatorActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layoutNameArea"
+        android:layout_width="match_parent"
+        android:layout_height="87dp"
+        android:background="@drawable/leaf"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtNavFullname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="Fullname"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:onClick="clickLogout"
+            android:tint="@android:color/white"
+            app:srcCompat="@android:drawable/ic_lock_power_off" />
+    </LinearLayout>
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </GridView>
+</LinearLayout>
