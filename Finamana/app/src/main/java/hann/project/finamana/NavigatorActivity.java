@@ -68,11 +68,13 @@ public class NavigatorActivity extends AppCompatActivity {
         MenuItem financialReport = new MenuItem("Financial Report","money");
         MenuItem statitics = new MenuItem("Statitics","music_note");
         MenuItem payAlarm = new MenuItem("Pay Alarm","umbrealla");
+        MenuItem backupData = new MenuItem("Backup Data", "backup");
 
         list.add(tableList);
         list.add(financialReport);
         list.add(statitics);
         list.add(payAlarm);
+        list.add(backupData);
 
         return list;
     }
