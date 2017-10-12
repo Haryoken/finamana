@@ -34,12 +34,28 @@
             android:onClick="clickLogout"
             android:tint="@android:color/white"
             app:srcCompat="@android:drawable/ic_lock_power_off" />
+
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@android:color/darker_gray"
+        android:orientation="horizontal"></LinearLayout>
 
     <GridView
         android:id="@+id/gridFeatures"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:columnWidth="120dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="3"
+        android:paddingTop="30dp"
+        android:stretchMode="columnWidth"
+
+        android:verticalSpacing="40dp">
 
     </GridView>
+
 </LinearLayout>
