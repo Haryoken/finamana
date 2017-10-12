@@ -13,8 +13,8 @@ import hann.project.finamana.controllers.LoginManager;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private final String SPName = "USERNAME_PREFERENCE";
-    SharedPreferences SP;
+    private final String spName = "USERNAME_PREFERENCE";
+    SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +28,8 @@ public class LoginActivity extends AppCompatActivity {
         LoginManager lm = new LoginManager();
         if(lm.checkLogin(username,password,this)){
             Toast.makeText(this, "LOGIN SUCCESS", Toast.LENGTH_SHORT).show();
-            SP = getSharedPreferences(SPName, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = SP.edit();
+            sp = getSharedPreferences(spName, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
             editor.putString("USERNAME",username);
             editor.commit();
             Intent toNavigatorIntent = new Intent(this, NavigatorActivity.class);
