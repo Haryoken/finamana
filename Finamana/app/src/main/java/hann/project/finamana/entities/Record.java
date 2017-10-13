@@ -12,7 +12,7 @@ public class Record {
 
     //FIELDS
     private Date recordDate;
-    private int recordId;
+    private int recordId; //Primary Key
     private String description;
     private double revenue;
     private double expense;
