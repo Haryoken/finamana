@@ -47,7 +47,7 @@ public class FeatureGridAdapter extends BaseAdapter {
 
         ViewHolder holder = new ViewHolder();
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.menu_item_layout, null);
+            view = layoutInflater.inflate(R.layout.item_menu, null);
 
             holder.featurePics = (ImageView) view.findViewById(R.id.imgFeaturePicture);
             holder.featureName = (TextView) view.findViewById(R.id.txtFeatureName);
