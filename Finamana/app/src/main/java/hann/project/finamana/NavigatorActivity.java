@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,15 +26,46 @@ import hann.project.finamana.utils.BackupHelper;
 import hann.project.finamana.utils.FeatureGridAdapter;
 
 public class NavigatorActivity extends AppCompatActivity {
-    private final String TABLE_LIST="Table List";
+    private final String TABLE_MANAGER="Table Manager";
     private final String FINANCIAL_REPORT="Financial Report";
-    private final String BACKUP_DATA="Backup Data";
     private final String STATITICS="Statitics";
-
+    enum ImageName {backup,credit_card,drone
+                    ,ic_launcher,ic_launcher_round,money
+                    ,music_note,umbrealla
+                    ,money_green,chart};
 
     private SharedPreferences sp;
     private final String USERNAME_SP="USERNAME_PREFERENCE";
     GridView grid;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.option_menu, menu); //your file name
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuSetting:
+                //
+                return true;
+            case R.id.menuBackup:
+                BackupHelper buHelper = new BackupHelper(NavigatorActivity.this);
+                if(buHelper.processBackup()){
+                    Toast.makeText(this,"Your Data has been Sucessfully Backup.",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(this,"Backup failed.",Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            case R.id.menuLogout:
+                this.logout();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,19 +96,18 @@ public class NavigatorActivity extends AppCompatActivity {
                 switch (item.getName()){
                     default:
                         break;
-                    case TABLE_LIST:
+                    case TABLE_MANAGER:
                         Intent toTableIntent = new Intent(NavigatorActivity.this,TableActivity.class);
                         startActivity(toTableIntent);
+                        break;
                     case FINANCIAL_REPORT:
                         Intent toReportIntent = new Intent(NavigatorActivity.this,ReportActivity.class);
                         startActivity(toReportIntent);
+                        break;
                     case STATITICS:
                         Intent toStatiticsIntent = new Intent(NavigatorActivity.this,StatiticsActivity.class);
                         startActivity(toStatiticsIntent);
-                    case BACKUP_DATA:
-                        //DO BACK UP PROCESS
-                        BackupHelper buHelper = new BackupHelper(NavigatorActivity.this);
-                        buHelper.processBackup();
+                        break;
                 }
             }
 
@@ -85,6 +117,9 @@ public class NavigatorActivity extends AppCompatActivity {
 //                android.R.layout.simple_list_item_1, arrNameCity);
 //        grid.setAdapter(adapter);
     }
+
+
+
     public void clickLogout(View view){
         sp = getSharedPreferences(USERNAME_SP, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -97,18 +132,24 @@ public class NavigatorActivity extends AppCompatActivity {
     private List<MenuItem> getMenuItemList(){
         List<MenuItem> list = new ArrayList<MenuItem>();
 
-        MenuItem tableList = new MenuItem(TABLE_LIST,"drone");
-        MenuItem financialReport = new MenuItem(FINANCIAL_REPORT,"money");
-        MenuItem statitics = new MenuItem(STATITICS,"music_note");
-        MenuItem payAlarm = new MenuItem("Pay Alarm","umbrealla"); //Temporary
-        MenuItem backupData = new MenuItem(BACKUP_DATA, "backup");
+        MenuItem tableList = new MenuItem(TABLE_MANAGER,ImageName.credit_card.toString());
+        MenuItem financialReport = new MenuItem(FINANCIAL_REPORT,ImageName.money_green.toString());
+        MenuItem statitics = new MenuItem(STATITICS,ImageName.money_green.chart.toString());
 
         list.add(tableList);
         list.add(financialReport);
         list.add(statitics);
-        list.add(payAlarm);
-        list.add(backupData);
+
 
         return list;
+    }
+    private void logout(){
+        sp = getSharedPreferences(USERNAME_SP, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.commit();
+
+        Intent toLoginIntent = new Intent(this, LoginActivity.class);
+        startActivity(toLoginIntent);
     }
 }

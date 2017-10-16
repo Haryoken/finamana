@@ -9,8 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import hann.project.finamana.R;
@@ -49,7 +47,7 @@ public class FeatureGridAdapter extends BaseAdapter {
 
         ViewHolder holder = new ViewHolder();
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.list_item_layout, null);
+            view = layoutInflater.inflate(R.layout.menu_item_layout, null);
 
             holder.featurePics = (ImageView) view.findViewById(R.id.imgFeaturePicture);
             holder.featureName = (TextView) view.findViewById(R.id.txtFeatureName);
