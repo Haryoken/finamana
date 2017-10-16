@@ -1,5 +1,7 @@
 package hann.project.finamana.entities;
 
+import java.sql.Date;
+
 /**
  * Created by DUCVINH on 4/10/2017.
  */
@@ -9,16 +11,33 @@ public class RecordTable {
 
    //FIELDS
     private int tableId; //Primary Key
+    private String title;
     private RecordTable.MONTH month;
     private int year;
     private String username;//Foreign Key
     private double odd;
-
+    private Date createdDate;
     public RecordTable(int tableId, MONTH month, int year, String username) {
         this.tableId = tableId;
         this.month = month;
         this.year = year;
         this.username = username;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public double getOdd() {
@@ -33,9 +52,9 @@ public class RecordTable {
         return tableId;
     }
 
-    public void setTableId(int tableId) {
-        this.tableId = tableId;
-    }
+//    public void setTableId(int tableId) {
+//        this.tableId = tableId;
+//    }
 
     public MONTH getMonth() {
         return month;

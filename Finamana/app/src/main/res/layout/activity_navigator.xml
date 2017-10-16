@@ -31,7 +31,7 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="96dp"
+        android:layout_height="121dp"
         android:baselineAligned="true"
         android:orientation="horizontal">
 
@@ -45,15 +45,15 @@
                 android:id="@+id/lblCurrentOdd"
                 android:layout_width="wrap_content"
                 android:text="Current Odd: "
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtCurrentOdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textAlignment="gravity"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
             <TextView
@@ -92,14 +92,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Current Debt: "
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtCurrentDebt"
-                android:layout_width="wrap_content"
+                android:layout_width="260sp"
                 android:layout_height="wrap_content"
                 android:text="0"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
             <TextView
@@ -123,6 +124,30 @@
                 android:background="#FF909090"
                 android:padding="2dip" />
         </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <View
+                android:id="@+id/blank"
+                android:layout_width="match_parent"
+                android:layout_height="25sp"
+                android:layout_weight="1"
+                android:background="#e1dede"
+                android:padding="2dip" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_weight="1"
+                android:background="#FF909090"
+                android:padding="2dip" />
+        </TableRow>
     </TableLayout>
 
     <GridView
@@ -131,13 +156,12 @@
         android:layout_height="match_parent"
         android:columnWidth="120dp"
         android:gravity="center"
-        android:horizontalSpacing="10dp"
+        android:horizontalSpacing="0dp"
         android:numColumns="3"
-        android:paddingTop="30dp"
+        android:paddingTop="0dp"
+        android:paddingLeft="20dp"
         android:stretchMode="columnWidth"
-
-
-        android:verticalSpacing="40dp">
+        android:verticalSpacing="0dp">
 
     </GridView>
 
