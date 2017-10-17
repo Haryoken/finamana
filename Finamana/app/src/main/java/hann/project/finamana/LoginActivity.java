@@ -5,11 +5,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import hann.project.finamana.controllers.LoginManager;
+import hann.project.finamana.utils.DBHelper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -19,6 +23,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //DBHelper dbHelper = new DBHelper(this);
+//        try {
+//            dbHelper.copydatabase();
+//            Log.d("LOGIN ACTIVITY", "Finish Copying");
+//        }catch(IOException e){
+//            Log.d("LOGIN ACTIVITY", e.getMessage());
+//        }
     }
     public void clickSignIn(View view){
         EditText txtUsername = (EditText)findViewById(R.id.txtUsername);

@@ -7,7 +7,7 @@ import java.sql.Date;
  */
 
 public class RecordTable {
-    enum MONTH {JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC}
+    public enum MONTH {JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC}
 
    //FIELDS
     private int tableId; //Primary Key
@@ -17,6 +17,7 @@ public class RecordTable {
     private String username;//Foreign Key
     private double odd;
     private Date createdDate;
+
     public RecordTable(int tableId, MONTH month, int year, String username) {
         this.tableId = tableId;
         this.month = month;

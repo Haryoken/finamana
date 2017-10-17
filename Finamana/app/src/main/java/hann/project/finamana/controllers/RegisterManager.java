@@ -10,13 +10,15 @@ import hann.project.finamana.utils.DBHelper;
  */
 
 public class RegisterManager {
-    public boolean registerUser(User user, Context context){
-        DBHelper dbHelper = new DBHelper(context);
+    DBHelper dbHelper;
+    public RegisterManager(Context context){
+        dbHelper = new DBHelper(context);
+    }
+    public boolean registerUser(User user){
         return dbHelper.registerUser(user);
 
     }
-    public boolean checkUserExistence(User user,Context context){
-        DBHelper dbHelper = new DBHelper(context);
+    public boolean checkUserExistence(User user){
         return dbHelper.checkUserExistence(user);
     }
 }

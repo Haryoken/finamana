@@ -12,10 +12,12 @@ import hann.project.finamana.controllers.RegisterManager;
 import hann.project.finamana.entities.User;
 
 public class RegisterActivity extends AppCompatActivity {
+    RegisterManager rm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        rm = new RegisterManager(this);
     }
     public void clickSignUp(View view){
         EditText txtUsername = (EditText)findViewById(R.id.txtUsername);
@@ -30,12 +32,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         User user = new User(username,password,fullname);
 
-        RegisterManager rm = new RegisterManager();
-        boolean isUserExisted = rm.checkUserExistence(user, this);
+        RegisterManager rm = new RegisterManager(this);
+        boolean isUserExisted = rm.checkUserExistence(user);
 
         if (validateUser(username, password,confirmPassword, fullname, isUserExisted)){
 
-            if(rm.registerUser(user,this)){
+            if(rm.registerUser(user)){
                 Toast.makeText(this,"Register Successfully.",Toast.LENGTH_SHORT).show();
                 Intent toLoginIntent = new Intent(this, LoginActivity.class);
                 startActivity(toLoginIntent);
@@ -51,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         TextView txtFullnameError = (TextView)findViewById(R.id.txtFullnameError);
         TextView txtConfirmPasswordError = (TextView)findViewById(R.id.txtConfirmPasswordError);
 
-        RegisterManager rm = new RegisterManager();
+        RegisterManager rm = new RegisterManager(this);
         boolean result = true;
 
         //username validate

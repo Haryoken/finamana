@@ -23,19 +23,23 @@ import hann.project.finamana.entities.User;
 public class DBHelper extends SQLiteOpenHelper{
     private static final String TABLE_USER="User";
     private static final String TABLE_RECORD="Record";
+    private static final String TABLE_RECORDTABLE="RecordTable";
     private Context mycontext;
     private static final String DB_NAME = "FinamanaDB.db";
     private static final String DB_PATH ="/data/data/hann.project.finamana/databases/";
     public SQLiteDatabase myDataBase;
+    public static final int DB_VERISON = 5;
 
 
     public DBHelper(Context context){
-        super(context, DB_NAME, null, 1);
+        super(context, DB_NAME, null, DB_VERISON);
 
         this.mycontext = context;
+
         boolean dbexist = checkdatabase();
         if (dbexist) {
             Log.d("DBHelper", "Database file exist, open");
+
             opendatabase();
         } else {
             Log.d("DBHelper", "Database file not exist, create new one");
@@ -50,6 +54,15 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
     //USER METHOD:
+    public Cursor getAllRecordTableByUser(String username){
+        String query = "SELECT * FROM "+TABLE_RECORDTABLE + " WHERE username=?";
+        String[] selectionAgrs = {username};
+        Cursor tableListCursor = myDataBase.rawQuery(query,selectionAgrs);
+        if(tableListCursor != null){
+            return tableListCursor;
+        }
+            return null;
+    }
     public boolean checkLogin(String username, String password){
         String query = "SELECT * FROM "+ TABLE_USER +" WHERE username=? and password=?";
         String[] selectionAgrs = {username,password};
@@ -112,7 +125,7 @@ public class DBHelper extends SQLiteOpenHelper{
         return checkdb;
     }
     //Used by createdatabase
-    private void copydatabase() throws IOException {
+    public void copydatabase() throws IOException {
         InputStream myinput = mycontext.getAssets().open(DB_NAME);
         String outfilename = DB_PATH + DB_NAME;
         File dbdir = new File(DB_PATH);
@@ -137,6 +150,7 @@ public class DBHelper extends SQLiteOpenHelper{
         //Open the database
         String mypath = DB_PATH + DB_NAME;
         myDataBase = SQLiteDatabase.openDatabase(mypath, null, SQLiteDatabase.OPEN_READWRITE);
+        //myDataBase.close();
     }
 
     public synchronized void close() {
@@ -148,20 +162,20 @@ public class DBHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE [User] (\n" +
-                "  [username] NVARCHAR(16) NOT NULL ON CONFLICT ROLLBACK, \n" +
+                "  [username] NVARCHAR(16) NOT NULL ON CONFLICT ROLLBACK PRIMARY KEY, \n" +
                 "  [password] CHAR(16) NOT NULL ON CONFLICT ROLLBACK, \n" +
                 "  [fullname] NVARCHAR(30));\n" +
                 "\n" +
                 "\n" +
-                "CREATE TABLE [Table] (\n" +
-                "  [tableId] INT(3) NOT NULL ON CONFLICT FAIL, \n" +
+                "CREATE TABLE [RecordTable] (\n" +
+                "  [tableId] INT(3) NOT NULL ON CONFLICT FAIL PRIMARY KEY AUTOINCREMENT, \n" +
                 "  [month] NVARCHAR(3) NOT NULL ON CONFLICT FAIL, \n" +
                 "  [year] INT(4) NOT NULL ON CONFLICT FAIL, \n" +
                 "  [username] NVARCHAR(16) NOT NULL ON CONFLICT FAIL CONSTRAINT [username] REFERENCES [User]([username]) ON DELETE SET NULL);\n" +
                 "\n" +
                 "\n" +
                 "CREATE TABLE [Record] (\n" +
-                "  [recordId] INT(5) NOT NULL ON CONFLICT FAIL, \n" +
+                "  [recordId] INT(5) NOT NULL ON CONFLICT FAIL PRIMARY KEY AUTOINCREMENT, \n" +
                 "  [date] DATE(20) NOT NULL ON CONFLICT FAIL, \n" +
                 "  [description] NVARCHAR(50), \n" +
                 "  [revenue] FLOAT, \n" +
@@ -173,6 +187,10 @@ public class DBHelper extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        Log.d("ONUPGRADE", newVersion+"");
+        db.execSQL("DROP TABLE IF EXISTS User");
+        db.execSQL("DROP TABLE IF EXISTS RecordTable");
+        db.execSQL("DROP TABLE IF EXISTS Record");
+        onCreate(db);
     }
 }
