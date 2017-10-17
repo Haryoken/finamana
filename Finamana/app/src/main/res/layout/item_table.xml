@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +34,8 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="0.01">
 
 
         <TableRow
@@ -97,6 +99,19 @@
                 android:layout_height="wrap_content"
                 android:text="Odd"
                 android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_weight="1"
+                android:background="#FF909090"
+                android:padding="2dip" />
         </TableRow>
     </TableLayout>
 </LinearLayout>

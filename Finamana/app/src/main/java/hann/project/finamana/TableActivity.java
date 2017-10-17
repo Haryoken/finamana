@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -44,14 +46,17 @@ public class TableActivity extends AppCompatActivity {
         manager = new TableManager(this);
         tableGrid = (GridView) findViewById(R.id.gridRecordTable);
         recordTableList = manager.getAllRecordTable(username);
-
-        tableGrid.setAdapter(new TableItemAdapter(this, recordTableList));
-        tableGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Snackbar.make(view, position +" is clicked.",Snackbar.LENGTH_SHORT).show();
-            }
-        });
+        if(recordTableList!=null) {
+            tableGrid.setAdapter(new TableItemAdapter(this, recordTableList));
+            tableGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    Snackbar.make(view, position + " is clicked.", Snackbar.LENGTH_SHORT).show();
+                }
+            });
+        }else {
+            Toast.makeText(this,"TBL list null",Toast.LENGTH_SHORT);
+        }
     }
 
 }

@@ -13,7 +13,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import hann.project.finamana.entities.RecordTable;
 import hann.project.finamana.entities.User;
 
 /**
@@ -23,10 +27,19 @@ import hann.project.finamana.entities.User;
 public class DBHelper extends SQLiteOpenHelper{
     private static final String TABLE_USER="User";
     private static final String TABLE_RECORD="Record";
+
     private static final String TABLE_RECORDTABLE="RecordTable";
-    private Context mycontext;
+    public static final String RECORDTABLE_COLLUM_TABLEID="tableId";
+    public static final String RECORDTABLE_COLLUM_MONTH="month";
+    public static final String RECORDTABLE_COLLUM_YEAR="year";
+    public static final String RECORDTABLE_COLLUM_ODD="odd";
+    public static final String RECORDTABLE_COLLUM_CREATEDDATE="createdDate";
+    public static final String RECORDTABLE_COLLUM_USERNAME="username";
+
     private static final String DB_NAME = "FinamanaDB.db";
     private static final String DB_PATH ="/data/data/hann.project.finamana/databases/";
+
+    private Context mycontext;
     public SQLiteDatabase myDataBase;
     public static final int DB_VERISON = 5;
 
@@ -54,12 +67,36 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
     //USER METHOD:
-    public Cursor getAllRecordTableByUser(String username){
-        String query = "SELECT * FROM "+TABLE_RECORDTABLE + " WHERE username=?";
+    public boolean addTable(RecordTable table){
+        //TODO query Add Table
+        return false;
+    }
+    public List<RecordTable> getAllRecordTableByUser(String username){
+        String query = "SELECT * FROM "+TABLE_RECORDTABLE + " WHERE "+RECORDTABLE_COLLUM_USERNAME+"=?";
         String[] selectionAgrs = {username};
-        Cursor tableListCursor = myDataBase.rawQuery(query,selectionAgrs);
-        if(tableListCursor != null){
-            return tableListCursor;
+        Cursor cursor = myDataBase.rawQuery(query,selectionAgrs);
+
+        List<RecordTable> tableList = new ArrayList<RecordTable>();
+        if(cursor != null){
+           for(;cursor.moveToNext();){
+
+
+                   int tableId = cursor.getInt(cursor.getColumnIndex(RECORDTABLE_COLLUM_TABLEID));
+                   //String title = tableListCursor.getString(tableListCursor.getColumnIndex("title"));
+                   String monthString = cursor.getString(cursor.getColumnIndex(RECORDTABLE_COLLUM_MONTH));
+                   RecordTable.MONTH month = RecordTable.parseMONTH(monthString);
+                   int year = cursor.getInt(cursor.getColumnIndex(RECORDTABLE_COLLUM_YEAR));
+                   double odd = cursor.getDouble(cursor.getColumnIndex(RECORDTABLE_COLLUM_ODD)) ;
+                   long createdDate = cursor.getLong(cursor.getColumnIndex(RECORDTABLE_COLLUM_CREATEDDATE));
+
+                   RecordTable table = new RecordTable(tableId,month,year,username);
+                   table.setOdd(odd);
+                   table.setCreatedDate(createdDate);
+                   tableList.add(table);
+
+
+           }
+           return tableList;
         }
             return null;
     }

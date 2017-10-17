@@ -32,19 +32,11 @@ public class TableManager implements ManageTable {
 
 
     public List<RecordTable> getAllRecordTable(String username){
-
-        Cursor rawTableList = helper.getAllRecordTableByUser(username);
-        List<RecordTable> tableList = new ArrayList<>();
-        while(true){
-            if(!rawTableList.moveToNext()){
-                break; //TODO bug here
-            }
-
-        }
-        return null;
+       return helper.getAllRecordTableByUser(username);
     }
     @Override
-    public void addNewRecordToTable() {
+    public boolean addTable(RecordTable table) {
+        return helper.addTable(table);
 
     }
 

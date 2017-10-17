@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.Date;
 import java.util.List;
 
 import hann.project.finamana.R;
@@ -60,9 +61,10 @@ public class TableItemAdapter extends BaseAdapter {
             tblHolder = (TableViewHoler) view.getTag();
         }
         RecordTable table = tableItemList.get(i);
-
-        tblHolder.title.setText(table.getTitle());
-        tblHolder.createdDate.setText(table.getCreatedDate().toString());//Might be bugged
+        String title = table.getMonth().toString() +"_"+ table.getYear();
+        long createdDate = table.getCreatedDate();
+        tblHolder.title.setText(title);
+        tblHolder.createdDate.setText(new Date(createdDate).toString());//Might be bugged
         tblHolder.owner.setText(table.getUsername());// Change to fullname later
         tblHolder.btnDeleteTable.setOnClickListener(new View.OnClickListener() {
             @Override
