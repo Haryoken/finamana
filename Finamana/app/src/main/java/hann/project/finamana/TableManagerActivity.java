@@ -53,11 +53,14 @@ public class TableManagerActivity extends AppCompatActivity {
             tableGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    Snackbar.make(view, position + " is clicked.", Snackbar.LENGTH_SHORT).show();
+
+                   Intent toRecordListIntent = new Intent(TableManagerActivity.this,RecordListActivity.class);
+                    toRecordListIntent.putExtra("tableId",recordTableList.get(position).getTableId());
+                    startActivity(toRecordListIntent);
                 }
             });
         }else {
-            Toast.makeText(this,"TBL list null",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"No Item In List",Toast.LENGTH_SHORT);
         }
     }
 
