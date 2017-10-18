@@ -8,16 +8,17 @@ import java.sql.Date;
 
 
 public class Record {
-    enum CATEGORY{FOOD,BEVARAGE,FUEL,OUTFIT,SHOPPING,ENTERTAINMENT,OTHER};
+    enum CATEGORY{FOOD,BEVARAGE,FUEL,OUTFIT,SHOPPING,ENTERTAINMENT,SALARY,OTHER};
 
     //FIELDS
-    private Date recordDate;
+
     private int recordId; //Primary Key
     private String description;
     private double revenue;
     private double expense;
     private Record.CATEGORY category;
     private int tableId;//Foreign Key
+    private Date recordDate;
 
     public Record(Date recordDate, int recordId, String description, double revenue, double expense, int tableId) {
         this.recordDate = recordDate;
