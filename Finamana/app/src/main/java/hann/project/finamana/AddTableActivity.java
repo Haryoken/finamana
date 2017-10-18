@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +55,7 @@ public class AddTableActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Failed to add new table.", Toast.LENGTH_SHORT).show();
         }
-        Intent toTableIntent = new Intent(this,TableActivity.class);
+        Intent toTableIntent = new Intent(this,TableManagerActivity.class);
         startActivity(toTableIntent);
     }
 }

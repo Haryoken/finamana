@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".NavigatorActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".TableActivity" />
+        <activity android:name=".TableManagerActivity" />
         <activity android:name=".ReportActivity" />
         <activity android:name=".StatiticsActivity" />
         <activity android:name=".AddTableActivity"></activity>

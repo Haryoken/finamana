@@ -67,6 +67,11 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
     //USER METHOD:
+    public boolean removeTable(RecordTable table){
+
+        int result = myDataBase.delete(TABLE_RECORDTABLE,RECORDTABLE_COLLUM_TABLEID+"=?",new String[]{String.valueOf(table.getTableId())});
+        return result >0;
+    }
     public boolean addTable(RecordTable table){
         ContentValues values = new ContentValues();
         values.put("month",table.getMonth());//bug here

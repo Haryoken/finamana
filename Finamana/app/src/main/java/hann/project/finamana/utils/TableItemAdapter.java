@@ -1,8 +1,11 @@
 package hann.project.finamana.utils;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.media.Image;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -22,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 
 import hann.project.finamana.R;
+import hann.project.finamana.controllers.TableManager;
 import hann.project.finamana.entities.RecordTable;
 
 /**
@@ -63,13 +68,15 @@ public class TableItemAdapter extends BaseAdapter {
             tblHolder.createdDate = (TextView)view.findViewById(R.id.txtCreatedDate);
             tblHolder.owner = (TextView)view.findViewById(R.id.txtTableOwner);
             tblHolder.odd = (TextView)view.findViewById(R.id.txtTableOdd);
-            tblHolder.btnDeleteTable = (ImageButton)view.findViewById(R.id.btnDeleteTable);
+
+            tblHolder.btnRemoveTbl = (TextView)view.findViewById(R.id.btnRemoveTbl);
+
 
             view.setTag(tblHolder);
         }else{
             tblHolder = (TableViewHoler) view.getTag();
         }
-        RecordTable table = tableItemList.get(i);
+        final RecordTable table = tableItemList.get(i);
         String title = RecordTable.parseMONTH(table.getMonth()).toString() +"_"+ table.getYear();
         long createdDate = table.getCreatedDate();
         Double odd = table.getOdd();
@@ -86,15 +93,39 @@ public class TableItemAdapter extends BaseAdapter {
         } else {
             tblHolder.odd.setTextColor(Color.RED);
         }
-
-
         tblHolder.owner.setText(table.getUsername());// Change to fullname later
-        tblHolder.btnDeleteTable.setOnClickListener(new View.OnClickListener() {
+
+
+        tblHolder.btnRemoveTbl.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //Perform Delete SQL by tableId (Remember to Delete all the relative Records).
+            public void onClick(View view) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Are you sure to delete this Table ?");
+                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        TableManager manager = new TableManager(context);
+                        if(manager.removeTableFromList(table)){
+                            tableItemList.remove(table);
+                            notifyDataSetChanged();
+                            Toast.makeText(context," Table has been successfully removed.",Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(context,"Remove failed.",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
+
+
         return view;
     }
 
@@ -103,6 +134,6 @@ static class TableViewHoler{
     TextView createdDate;
     TextView owner;
     TextView odd;
-    ImageButton btnDeleteTable;
+    TextView btnRemoveTbl;
     }
 }

@@ -7,10 +7,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import hann.project.finamana.controllers.TableManager;
 import hann.project.finamana.entities.RecordTable;
 import hann.project.finamana.utils.TableItemAdapter;
 
-public class TableActivity extends AppCompatActivity {
+public class TableManagerActivity extends AppCompatActivity {
     private final String USERNAME_SP="USERNAME_PREFERENCE";
 
     private GridView tableGrid;
@@ -28,7 +28,9 @@ public class TableActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_table);
+        setContentView(R.layout.activity_table_manager);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton btnAdd = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -36,7 +38,7 @@ public class TableActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Snackbar.make(view,"Clicked",Snackbar.LENGTH_SHORT).show();
-                Intent toAddTableIntent = new Intent(TableActivity.this,AddTableActivity.class);
+                Intent toAddTableIntent = new Intent(TableManagerActivity.this,AddTableActivity.class);
                 startActivity(toAddTableIntent);
             }
         });
@@ -57,6 +59,17 @@ public class TableActivity extends AppCompatActivity {
         }else {
             Toast.makeText(this,"TBL list null",Toast.LENGTH_SHORT);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

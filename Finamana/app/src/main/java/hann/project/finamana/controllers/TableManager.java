@@ -39,7 +39,9 @@ public class TableManager implements ManageTable {
         return helper.addTable(table);
 
     }
-
+    public boolean removeTableFromList(RecordTable table){
+        return helper.removeTable(table);
+    }
     @Override
     public boolean removeRecordFromTable(int tableId, int RecordId) {
         return false;

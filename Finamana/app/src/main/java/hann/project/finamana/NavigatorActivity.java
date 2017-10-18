@@ -3,14 +3,12 @@ package hann.project.finamana;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,8 +16,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import hann.project.finamana.controllers.ImageAdapter;
-import hann.project.finamana.controllers.LoginManager;
 import hann.project.finamana.controllers.NavigatorManager;
 import hann.project.finamana.entities.MenuItem;
 import hann.project.finamana.utils.BackupHelper;
@@ -97,7 +93,7 @@ public class NavigatorActivity extends AppCompatActivity {
                     default:
                         break;
                     case TABLE_MANAGER:
-                        Intent toTableIntent = new Intent(NavigatorActivity.this,TableActivity.class);
+                        Intent toTableIntent = new Intent(NavigatorActivity.this,TableManagerActivity.class);
                         startActivity(toTableIntent);
                         break;
                     case FINANCIAL_REPORT:
