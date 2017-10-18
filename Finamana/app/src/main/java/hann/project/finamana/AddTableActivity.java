@@ -1,28 +1,33 @@
 package hann.project.finamana;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import hann.project.finamana.controllers.TableManager;
 import hann.project.finamana.entities.RecordTable;
 
 public class AddTableActivity extends AppCompatActivity {
     private static final String USERNAME_SP = "USERNAME_PREFERENCE";
     private Spinner spYear;
     private Spinner spMonth;
+    TableManager manager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_table);
 
+        manager = new TableManager(this);
         spYear = (Spinner)findViewById(R.id.spinYear);
         spMonth = (Spinner)findViewById(R.id.spinMonth);
 
@@ -38,7 +43,7 @@ public class AddTableActivity extends AppCompatActivity {
     }
     public void clickDone(View view){
         int year = Integer.valueOf(spYear.getSelectedItem().toString());
-        RecordTable.MONTH month = RecordTable.parseMONTH(spMonth.getSelectedItem().toString());
+        String month = spMonth.getSelectedItem().toString();
 
         SharedPreferences sp = getSharedPreferences(USERNAME_SP, Context.MODE_PRIVATE);
         String username = sp.getString("USERNAME", "").toString();
@@ -46,6 +51,12 @@ public class AddTableActivity extends AppCompatActivity {
         long createdDate = new java.util.Date().getTime();
 
         RecordTable table = new RecordTable(month,year,username,createdDate);
-
+        if(manager.addTable(table)){
+            Toast.makeText(this, "A table has successfully added.", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "Failed to add new table.", Toast.LENGTH_SHORT).show();
+        }
+        Intent toTableIntent = new Intent(this,TableActivity.class);
+        startActivity(toTableIntent);
     }
 }

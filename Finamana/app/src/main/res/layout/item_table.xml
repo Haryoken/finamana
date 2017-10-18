@@ -56,7 +56,8 @@
                 android:layout_height="wrap_content"
                 android:text="Date"
                 android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                android:textSize="16sp"
+                android:textStyle="italic" />
         </TableRow>
 
         <TableRow
@@ -77,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textColor="@android:color/holo_blue_light"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
         </TableRow>
@@ -98,6 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Odd"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </TableRow>
 

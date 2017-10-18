@@ -12,19 +12,20 @@ public class RecordTable {
    //FIELDS
     private int tableId; //Primary Key
     //private String title;
-    private RecordTable.MONTH month;
+    //private RecordTable.MONTH month;
+    private String month;
     private int year;
     private String username;//Foreign Key
     private double odd;
     private long createdDate;
 
-    public RecordTable(int tableId, MONTH month, int year, String username) {
+    public RecordTable(int tableId, String month, int year, String username) {
         this.tableId = tableId;
         this.month = month;
         this.year = year;
         this.username = username;
     }
-    public RecordTable( MONTH month, int year, String username, long createdDate) {
+    public RecordTable( String month, int year, String username, long createdDate) {
         this.month = month;
         this.year = year;
         this.username = username;
@@ -62,11 +63,19 @@ public class RecordTable {
 //        this.tableId = tableId;
 //    }
 
-    public MONTH getMonth() {
+//    public MONTH getMonth() {
+//        return month;
+//    }
+//
+//    public void setMonth(MONTH month) {
+//        this.month = month;
+//    }
+
+    public String getMonth() {
         return month;
     }
 
-    public void setMonth(MONTH month) {
+    public void setMonth(String month) {
         this.month = month;
     }
 

@@ -1,7 +1,9 @@
 package hann.project.finamana.utils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +13,13 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Currency;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import hann.project.finamana.R;
 import hann.project.finamana.entities.RecordTable;
@@ -55,16 +62,32 @@ public class TableItemAdapter extends BaseAdapter {
             tblHolder.title = (TextView)view.findViewById(R.id.txtTableTitle);
             tblHolder.createdDate = (TextView)view.findViewById(R.id.txtCreatedDate);
             tblHolder.owner = (TextView)view.findViewById(R.id.txtTableOwner);
+            tblHolder.odd = (TextView)view.findViewById(R.id.txtTableOdd);
             tblHolder.btnDeleteTable = (ImageButton)view.findViewById(R.id.btnDeleteTable);
+
             view.setTag(tblHolder);
         }else{
             tblHolder = (TableViewHoler) view.getTag();
         }
         RecordTable table = tableItemList.get(i);
-        String title = table.getMonth().toString() +"_"+ table.getYear();
+        String title = RecordTable.parseMONTH(table.getMonth()).toString() +"_"+ table.getYear();
         long createdDate = table.getCreatedDate();
+        Double odd = table.getOdd();
+
         tblHolder.title.setText(title);
-        tblHolder.createdDate.setText(new Date(createdDate).toString());//Might be bugged
+
+            Date date = new Date(createdDate);
+            tblHolder.createdDate.setText(date.toString());
+
+        //odd
+        tblHolder.odd.setText(String.format("%,.2f", odd));
+        if(odd > 0){
+            tblHolder.odd.setTextColor(Color.rgb(100,150,100));
+        } else {
+            tblHolder.odd.setTextColor(Color.RED);
+        }
+
+
         tblHolder.owner.setText(table.getUsername());// Change to fullname later
         tblHolder.btnDeleteTable.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +102,7 @@ static class TableViewHoler{
     TextView title;
     TextView createdDate;
     TextView owner;
+    TextView odd;
     ImageButton btnDeleteTable;
     }
 }

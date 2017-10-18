@@ -68,7 +68,14 @@ public class DBHelper extends SQLiteOpenHelper{
 
     //USER METHOD:
     public boolean addTable(RecordTable table){
-        //TODO query Add Table
+        ContentValues values = new ContentValues();
+        values.put("month",table.getMonth());//bug here
+        values.put("year",table.getYear());
+        values.put("username",table.getUsername());
+        values.put("createdDate",table.getCreatedDate());
+        if(myDataBase.insert(TABLE_RECORDTABLE,RECORDTABLE_COLLUM_ODD,values)>-1){
+            return true;
+        }
         return false;
     }
     public List<RecordTable> getAllRecordTableByUser(String username){
@@ -83,8 +90,8 @@ public class DBHelper extends SQLiteOpenHelper{
 
                    int tableId = cursor.getInt(cursor.getColumnIndex(RECORDTABLE_COLLUM_TABLEID));
                    //String title = tableListCursor.getString(tableListCursor.getColumnIndex("title"));
-                   String monthString = cursor.getString(cursor.getColumnIndex(RECORDTABLE_COLLUM_MONTH));
-                   RecordTable.MONTH month = RecordTable.parseMONTH(monthString);
+                   String month = cursor.getString(cursor.getColumnIndex(RECORDTABLE_COLLUM_MONTH));
+                   //RecordTable.MONTH month = RecordTable.parseMONTH(monthString);
                    int year = cursor.getInt(cursor.getColumnIndex(RECORDTABLE_COLLUM_YEAR));
                    double odd = cursor.getDouble(cursor.getColumnIndex(RECORDTABLE_COLLUM_ODD)) ;
                    long createdDate = cursor.getLong(cursor.getColumnIndex(RECORDTABLE_COLLUM_CREATEDDATE));
