@@ -9,7 +9,8 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.04">
+        android:layout_weight="0.01"
+        android:background="@android:color/white">
 
         <TableRow
             android:layout_width="match_parent"
@@ -72,10 +73,10 @@
                 android:id="@+id/txtRecordMoneyAmount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
                 android:layout_marginLeft="8sp"
                 android:layout_span="2"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:text="MONEY_AMOUNT"
 
                 android:textAllCaps="true"
@@ -109,9 +110,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:orientation="horizontal"
-        android:layout_weight="0.04">
+        android:layout_height="6dp"
+        android:orientation="horizontal">
 
         <View
             android:id="@+id/line3"

@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hann.project.finamana.TableManagerActivity"
-    android:orientation="vertical">
+    android:background="@color/grey"
+    android:orientation="vertical"
+    tools:context="hann.project.finamana.TableManagerActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,9 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.67"
-            android:textAlignment="textEnd"
             android:gravity="end"
-            android:text="Sort by:" />
+            android:text="Sort by:"
+            android:textAlignment="textEnd" />
 
         <Spinner
             android:id="@+id/spinner2"
@@ -38,6 +39,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.32" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="8dp"
@@ -51,10 +53,11 @@
             android:background="#FF909090"
             android:padding="2dip" />
     </LinearLayout>
+
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="536dp">
+        android:layout_height="match_parent">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
@@ -73,7 +76,7 @@
         <GridView
             android:id="@+id/gridRecordTable"
             android:layout_width="match_parent"
-            android:layout_height="537dp"
+            android:layout_height="567dp"
             android:columnWidth="120dp"
             android:gravity="center"
             android:horizontalSpacing="0dp"

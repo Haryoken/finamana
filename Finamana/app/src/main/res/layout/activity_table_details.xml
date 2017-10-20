@@ -4,18 +4,282 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hann.project.finamana.RecordListActivity"
+    android:background="@color/grey"
+
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    tools:context="hann.project.finamana.RecordListActivity">
 
-    <android.support.design.widget.TextInputLayout
+    <TextView
+        android:id="@+id/lblTableInfo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.design.widget.TextInputLayout>
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingBottom="2dp"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:text="Table Info"
+        android:textAlignment="textStart"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"></LinearLayout>
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingTop="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblTableOwner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:text="Owner"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtTableOwner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:paddingRight="4dp"
+                android:text="OWNER"
+                android:textAlignment="textEnd"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblTableTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:text="Table"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtTableTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:paddingRight="4dp"
+                android:text="TABLE"
+                android:textAlignment="textEnd"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblTableCreatedDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.05"
+                android:paddingLeft="4dp"
+                android:text="Created date"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtTableCreatedDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.99"
+                android:gravity="end"
+                android:paddingRight="4dp"
+                android:text="CREATED_DATE"
+                android:textAlignment="textEnd"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lblFinancialInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingBottom="2dp"
+        android:paddingLeft="4dp"
+        android:paddingTop="8dp"
+        android:text="Financial Info"
+        android:textAlignment="textStart"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingTop="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblTotalRevenues"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.40"
+                android:paddingLeft="4dp"
+                android:text="Total Revenues"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtTotalRevenues"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:paddingRight="4dp"
+                android:text="TOTAL_REVENUES"
+                android:textAlignment="textEnd"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblTotalExpense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.42"
+                android:paddingLeft="4dp"
+                android:text="Total Expenses"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtTotalExpense"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:paddingRight="4dp"
+                android:text="TOTAL_EXPENSE"
+                android:textAlignment="textEnd"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblTotalOdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.07"
+                android:paddingLeft="4dp"
+                android:text="Total Odd"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtTotalOdd"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.93"
+                android:gravity="end"
+                android:paddingRight="4dp"
+                android:text="TOTAL_ODD"
+                android:textAlignment="textEnd"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lblTransactionsRecords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingBottom="2dp"
+        android:paddingLeft="4dp"
+        android:paddingTop="8dp"
+        android:text="Transactions Records"
+        android:textAlignment="textStart"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@mipmap/plus_white"
+            app:backgroundTint="@color/red"
+            app:borderWidth="0dp"
+            app:elevation="6dp"
+            app:fabSize="normal"
+            app:pressedTranslationZ="12dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/listRecords"
+                    android:layout_width="match_parent"
+                    android:layout_height="384dp"
+                    android:backgroundTint="@color/red"
+                    android:columnWidth="120dp"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="0dp"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="0dp">
+
+                </ListView>
+            </LinearLayout>
+        </ScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
+
 </LinearLayout>
