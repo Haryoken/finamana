@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp"
     android:weightSum="1">
 
     <LinearLayout
@@ -67,7 +69,7 @@
                 android:id="@+id/txtTableOwner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="Owner"
                 android:textColor="@android:color/holo_blue_light"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -101,27 +103,29 @@
     </TableLayout>
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
 
         <TextView
             android:id="@+id/btnRemoveTbl"
-            android:layout_width="390sp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-            android:textAlignment="textEnd"
-            android:textColor="@color/colorPrimary"
             android:gravity="end"
             android:text="Remove"
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp"
             android:textStyle="italic" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <View
             android:id="@+id/line3"
             android:layout_width="match_parent"
@@ -129,5 +133,5 @@
             android:layout_weight="1"
             android:background="#FF909090"
             android:padding="2dip" />
-        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
