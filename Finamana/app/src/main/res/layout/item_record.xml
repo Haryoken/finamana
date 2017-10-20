@@ -6,18 +6,17 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:layout_weight="0.06">
+        android:layout_height="89dp">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/txtRecordDate"
                 android:layout_width="200sp"
                 android:layout_height="wrap_content"
-                android:paddingLeft="6sp"
+                android:layout_marginLeft="8sp"
                 android:text="DATE"
 
                 android:textAllCaps="true"
@@ -26,41 +25,89 @@
 
             <TextView
                 android:id="@+id/txtCategory"
-                android:layout_width="210sp"
+                android:layout_width="200sp"
                 android:layout_height="wrap_content"
                 android:gravity="end"
+                android:layout_marginRight="8sp"
                 android:text="CATEGORY"
                 android:textAlignment="textEnd"
                 android:textAllCaps="true"
+                android:textColor="#e6800b"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textMultiLine" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/txtDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_span="2"
+                android:ems="10"
+
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:text="London Bridge is falling down falling down falling down. London bridge is falling down. My fair lady."
+                android:textAlignment="viewStart"
+                android:gravity="start"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="italic" />
         </TableRow>
 
+
         <TableRow
+
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+
+
+        </TableRow>
+
     </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtRecordMoneyAmount"
+            android:layout_width="300sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8sp"
+            android:layout_span="2"
+            android:text="MONEY_AMOUNT"
+
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnEditRecord"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_span="2"
+
+            android:onClick="clickEditRecord"
+            android:text="Edit" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <View
+            android:id="@+id/line3"
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_weight="1"
+            android:background="#FF909090"
+            android:padding="2dip" />
+    </LinearLayout>
+
 </LinearLayout>
