@@ -4,20 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+
     android:orientation="vertical"
-    android:padding="12dp"
     android:weightSum="1">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:weightSum="1">
 
         <TextView
             android:id="@+id/txtTableTitle"
-            android:layout_width="129dp"
+            android:layout_width="319dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.48"
+            android:layout_weight="0.87"
             android:text="Title"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
@@ -25,83 +27,91 @@
 
     </LinearLayout>
 
-    <TableLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.01">
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
 
+        <TextView
+            android:id="@+id/lblCreatedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="Created date: "
+            android:textAlignment="viewEnd" />
 
-        <TableRow
+        <TextView
+            android:id="@+id/txtCreatedDate"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="Date"
+            android:textAlignment="textEnd"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="italic" />
 
-            <TextView
-                android:id="@+id/lblCreatedDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:text="Created date: "
-                android:textAlignment="viewEnd" />
 
-            <TextView
-                android:id="@+id/txtCreatedDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Date"
-                android:textAllCaps="false"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="italic" />
-        </TableRow>
+    </LinearLayout>
 
-        <TableRow
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <TextView
+            android:id="@+id/lblOwner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="Owner: "
+            android:textAlignment="viewEnd" />
+
+        <TextView
+            android:id="@+id/txtTableOwner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="Owner"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/lblOwner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:text="Owner: "
-                android:textAlignment="viewEnd" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/txtTableOwner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Owner"
-                android:textColor="@android:color/holo_blue_light"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
 
-        </TableRow>
+        <TextView
+            android:id="@+id/lblTableOdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="Odd: "
+            android:textAlignment="viewEnd" />
 
-        <TableRow
+        <TextView
+            android:id="@+id/txtTableOdd"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="Odd"
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/lblTableOdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:text="Odd: "
-                android:textAlignment="viewEnd" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/txtTableOdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Odd"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-
-        </TableRow>
-
-
-    </TableLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -110,14 +120,20 @@
 
 
         <TextView
-            android:id="@+id/btnRemoveTbl"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/blank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
+        <TextView
+            android:id="@+id/btnRemoveTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
             android:gravity="end"
             android:text="Remove"
-            android:textAlignment="textEnd"
-            android:textColor="@color/colorPrimary"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/blue_smoke"
             android:textSize="16sp"
             android:textStyle="italic" />
     </LinearLayout>

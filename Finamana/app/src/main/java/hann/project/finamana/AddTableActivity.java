@@ -13,20 +13,20 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import hann.project.finamana.controllers.TableManager;
+import hann.project.finamana.controllers.TableListManager;
 import hann.project.finamana.entities.RecordTable;
 
 public class AddTableActivity extends AppCompatActivity {
     private static final String USERNAME_SP = "USERNAME_PREFERENCE";
     private Spinner spYear;
     private Spinner spMonth;
-    TableManager manager;
+    TableListManager manager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_table);
 
-        manager = new TableManager(this);
+        manager = new TableListManager(this);
         spYear = (Spinner)findViewById(R.id.spinYear);
         spMonth = (Spinner)findViewById(R.id.spinMonth);
 
@@ -55,7 +55,7 @@ public class AddTableActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Failed to add new table.", Toast.LENGTH_SHORT).show();
         }
-        Intent toTableIntent = new Intent(this,TableManagerActivity.class);
+        Intent toTableIntent = new Intent(this,FinancialManagementActivity.class);
         startActivity(toTableIntent);
     }
 }

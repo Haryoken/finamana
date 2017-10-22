@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     android:orientation="vertical"
-    tools:context="hann.project.finamana.TableManagerActivity">
+    tools:context="hann.project.finamana.FinancialManagementActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,20 +40,6 @@
             android:layout_weight="0.32" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:orientation="horizontal">
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:layout_weight="1"
-            android:background="#FF909090"
-            android:padding="2dip" />
-    </LinearLayout>
-
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -78,16 +64,31 @@
             android:layout_width="match_parent"
             android:layout_height="567dp"
             android:columnWidth="120dp"
+
             android:gravity="center"
             android:horizontalSpacing="0dp"
             android:numColumns="1"
-            android:paddingLeft="5dp"
-            android:paddingTop="0dp"
+
+            android:paddingTop="3dp"
             android:stretchMode="columnWidth"
             android:verticalSpacing="0dp">
 
         </GridView>
 
     </android.support.design.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_weight="1"
+            android:background="#FF909090"
+            android:padding="2dip" />
+    </LinearLayout>
 
 </LinearLayout>

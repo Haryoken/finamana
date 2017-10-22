@@ -4,29 +4,21 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.media.Image;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Currency;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import hann.project.finamana.R;
-import hann.project.finamana.controllers.TableManager;
+import hann.project.finamana.controllers.TableListManager;
 import hann.project.finamana.entities.RecordTable;
 
 /**
@@ -69,13 +61,15 @@ public class TableItemAdapter extends BaseAdapter {
             tblHolder.owner = (TextView)view.findViewById(R.id.txtTableOwner);
             tblHolder.odd = (TextView)view.findViewById(R.id.txtTableOdd);
 
-            tblHolder.btnRemoveTbl = (TextView)view.findViewById(R.id.btnRemoveTbl);
+            tblHolder.btnRemoveTable= (TextView) view.findViewById(R.id.btnRemoveTable);
+
 
 
             view.setTag(tblHolder);
         }else{
             tblHolder = (TableViewHoler) view.getTag();
         }
+
         final RecordTable table = tableItemList.get(i);
         String title = RecordTable.parseMONTH(table.getMonth()).toString() +"_"+ table.getYear();
         long createdDate = table.getCreatedDate();
@@ -83,20 +77,25 @@ public class TableItemAdapter extends BaseAdapter {
 
         tblHolder.title.setText(title);
 
-            Date date = new Date(createdDate);
-            tblHolder.createdDate.setText(date.toString());
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm  EE, MMM-dd-yyyy");
+        String strDate = formatter.format(new Date(table.getCreatedDate()));
+        tblHolder.createdDate.setText(strDate);
 
         //odd
-        tblHolder.odd.setText(String.format("%,.2f", odd));
+
         if(odd > 0){
-            tblHolder.odd.setTextColor(Color.rgb(100,150,100));
-        } else {
+            tblHolder.odd.setTextColor(Color.rgb(100,150,100));//GREEN
+            tblHolder.odd.setText("+"+String.format("%,.2f", odd));
+        } else if(odd < 0){
             tblHolder.odd.setTextColor(Color.RED);
+            tblHolder.odd.setText("-"+String.format("%,.2f", odd));
+        } else if(odd == 0){
+            tblHolder.odd.setText("0");
         }
         tblHolder.owner.setText(table.getUsername());// Change to fullname later
 
 
-        tblHolder.btnRemoveTbl.setOnClickListener(new View.OnClickListener() {
+        tblHolder.btnRemoveTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -110,7 +109,7 @@ public class TableItemAdapter extends BaseAdapter {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        TableManager manager = new TableManager(context);
+                        TableListManager manager = new TableListManager(context);
                         if(manager.removeTableFromList(table)){
                             tableItemList.remove(table);
                             notifyDataSetChanged();
@@ -134,6 +133,7 @@ static class TableViewHoler{
     TextView createdDate;
     TextView owner;
     TextView odd;
-    TextView btnRemoveTbl;
+    TextView btnRemoveTable;
+
     }
 }

@@ -8,7 +8,7 @@
 
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="hann.project.finamana.RecordListActivity">
+    tools:context="hann.project.finamana.TableDetailsActivity">
 
     <TextView
         android:id="@+id/lblTableInfo"
@@ -22,7 +22,8 @@
         android:textAlignment="textStart"
         android:textAllCaps="true"
         android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        android:textSize="15sp"
+        android:textStyle="italic" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,7 +54,7 @@
                 android:paddingRight="4dp"
                 android:text="OWNER"
                 android:textAlignment="textEnd"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -82,7 +83,8 @@
                 android:textAlignment="textEnd"
                 android:textAllCaps="true"
                 android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -108,7 +110,7 @@
                 android:paddingRight="4dp"
                 android:text="CREATED_DATE"
                 android:textAlignment="textEnd"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -127,7 +129,8 @@
         android:textAlignment="textStart"
         android:textAllCaps="true"
         android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        android:textSize="15sp"
+        android:textStyle="italic" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -161,7 +164,8 @@
                 android:textAlignment="textEnd"
                 android:textAllCaps="true"
                 android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -189,7 +193,8 @@
                 android:textAlignment="textEnd"
                 android:textAllCaps="true"
                 android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -217,7 +222,8 @@
                 android:textAlignment="textEnd"
                 android:textAllCaps="true"
                 android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
@@ -234,7 +240,8 @@
         android:textAlignment="textStart"
         android:textAllCaps="true"
         android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        android:textSize="15sp"
+        android:textStyle="italic" />
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/container"
@@ -267,7 +274,7 @@
                 <ListView
                     android:id="@+id/listRecords"
                     android:layout_width="match_parent"
-                    android:layout_height="384dp"
+                    android:layout_height="392dp"
                     android:backgroundTint="@color/red"
                     android:columnWidth="120dp"
                     android:gravity="center"

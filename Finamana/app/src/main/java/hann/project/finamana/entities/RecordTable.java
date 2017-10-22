@@ -1,12 +1,13 @@
 package hann.project.finamana.entities;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * Created by DUCVINH on 4/10/2017.
  */
 
-public class RecordTable {
+public class RecordTable implements Serializable{
     public enum MONTH {JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC}
 
    //FIELDS

@@ -17,6 +17,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import hann.project.finamana.entities.Record;
 import hann.project.finamana.entities.RecordTable;
 import hann.project.finamana.entities.User;
 
@@ -26,7 +27,16 @@ import hann.project.finamana.entities.User;
 
 public class DBHelper extends SQLiteOpenHelper{
     private static final String TABLE_USER="User";
+
     private static final String TABLE_RECORD="Record";
+    public static final String RECORD_COLLUM_TABLEID="tableId";
+    public static final String RECORD_COLLUM_RECORDID="recordId";
+    public static final String RECORD_COLLUM_DESCRIPTION="description";
+    public static final String RECORD_COLLUM_REVENUE="revenue";
+    public static final String RECORD_COLLUM_EXPENSE="expense";
+    public static final String RECORD_COLLUM_CATEGORY="category";
+    public static final String RECORD_COLLUM_RECORDDATE="recordDate";
+
 
     private static final String TABLE_RECORDTABLE="RecordTable";
     public static final String RECORDTABLE_COLLUM_TABLEID="tableId";
@@ -65,8 +75,42 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
 
-
     //USER METHOD:
+
+
+    //4. TABLE MANAGEMENT:
+    public List<Record> getAllRecordsByTableId(int tableId){
+        String query = "SELECT * FROM " +TABLE_RECORD + " WHERE " + RECORD_COLLUM_TABLEID+ "=?";
+        Cursor cursor = myDataBase.rawQuery(query,new String[]{String.valueOf(tableId)});
+
+        List<Record> recordList = new ArrayList<Record>();
+        if(cursor!=null){
+            for(;cursor.moveToNext();){
+                int recordId =cursor.getInt(cursor.getColumnIndex(RECORD_COLLUM_RECORDID));
+                String description =cursor.getString(cursor.getColumnIndex(RECORD_COLLUM_DESCRIPTION));
+                double revenue=cursor.getDouble(cursor.getColumnIndex(RECORD_COLLUM_REVENUE));
+                double expense=cursor.getDouble(cursor.getColumnIndex(RECORD_COLLUM_EXPENSE));
+
+                String cateString = cursor.getString(cursor.getColumnIndex(RECORD_COLLUM_CATEGORY));
+                Record.CATEGORY  category = Record.parseCATEGORY(cateString);
+                long recordDate = cursor.getLong(cursor.getColumnIndex(RECORD_COLLUM_RECORDDATE));
+
+                Record record = new Record(recordDate,recordId,description,tableId,category);
+                if(expense != 0){
+                    record.setExpense(expense);
+                }
+                if(revenue != 0){
+                    record.setRevenue(revenue);
+                }
+
+                recordList.add(record);
+            }
+            return recordList;
+        }
+        return null;
+    }
+
+    //3. TABLE LIST MANAGEMENT:
     public boolean removeTable(RecordTable table){
 
         int result = myDataBase.delete(TABLE_RECORDTABLE,RECORDTABLE_COLLUM_TABLEID+"=?",new String[]{String.valueOf(table.getTableId())});
@@ -94,9 +138,9 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
                    int tableId = cursor.getInt(cursor.getColumnIndex(RECORDTABLE_COLLUM_TABLEID));
-                   //String title = tableListCursor.getString(tableListCursor.getColumnIndex("title"));
+
                    String month = cursor.getString(cursor.getColumnIndex(RECORDTABLE_COLLUM_MONTH));
-                   //RecordTable.MONTH month = RecordTable.parseMONTH(monthString);
+
                    int year = cursor.getInt(cursor.getColumnIndex(RECORDTABLE_COLLUM_YEAR));
                    double odd = cursor.getDouble(cursor.getColumnIndex(RECORDTABLE_COLLUM_ODD)) ;
                    long createdDate = cursor.getLong(cursor.getColumnIndex(RECORDTABLE_COLLUM_CREATEDDATE));
@@ -112,6 +156,8 @@ public class DBHelper extends SQLiteOpenHelper{
         }
             return null;
     }
+
+    //2. LOGIN MODULE:
     public boolean checkLogin(String username, String password){
         String query = "SELECT * FROM "+ TABLE_USER +" WHERE username=? and password=?";
         String[] selectionAgrs = {username,password};
@@ -152,6 +198,8 @@ public class DBHelper extends SQLiteOpenHelper{
         return "";
     }
 
+
+    //1. DATABASE INSIDE PROCESS:
     public void createdatabase() throws IOException {
         boolean dbexist = checkdatabase();
         if(!dbexist) {

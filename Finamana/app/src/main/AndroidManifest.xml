@@ -21,11 +21,11 @@
         </activity>
         <activity android:name=".NavigatorActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".TableManagerActivity" />
+        <activity android:name=".FinancialManagementActivity" />
         <activity android:name=".ReportActivity" />
         <activity android:name=".StatiticsActivity" />
         <activity android:name=".AddTableActivity" />
-        <activity android:name=".RecordListActivity"></activity>
+        <activity android:name=".TableDetailsActivity"></activity>
     </application>
 
 </manifest>

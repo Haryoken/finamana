@@ -8,7 +8,7 @@ import java.sql.Date;
 
 
 public class Record {
-    enum CATEGORY{FOOD,BEVARAGE,FUEL,OUTFIT,SHOPPING,ENTERTAINMENT,SALARY,OTHER};
+    public enum CATEGORY{FOOD,BEVERAGE,FUEL,OUTFIT,SHOPPING,ENTERTAINMENT,SALARY,OTHER,DEBT};
 
     //FIELDS
 
@@ -16,27 +16,28 @@ public class Record {
     private String description;
     private double revenue;
     private double expense;
-    private Record.CATEGORY category;
+    private CATEGORY category;
     private int tableId;//Foreign Key
-    private Date recordDate;
+    private long recordDate;
 
-    public Record(Date recordDate, int recordId, String description, double revenue, double expense, int tableId) {
+    public Record(long recordDate, int recordId, String description, int tableId, CATEGORY category) {
         this.recordDate = recordDate;
         this.recordId = recordId;
         this.description = description;
-        this.revenue = revenue;
-        this.expense = expense;
+        this.revenue =0;
+        this.expense =0;
         this.tableId = tableId;
+        this.category= category;
     }
 
     public Record() {
     }
 
-    public Date getRecordDate() {
+    public long getRecordDate() {
         return recordDate;
     }
 
-    public void setRecordDate(Date recordDate) {
+    public void setRecordDate(long recordDate) {
         this.recordDate = recordDate;
     }
 
@@ -85,5 +86,31 @@ public class Record {
 
     public void setTableId(int tableId) {
         this.tableId = tableId;
+    }
+
+    public static Record.CATEGORY parseCATEGORY(String monthString){
+        switch (monthString){
+            //FOOD,BEVERAGE,FUEL,OUTFIT,SHOPPING,ENTERTAINMENT,SALARY,OTHER
+            default:
+                return null;
+            case "FOOD":
+                return CATEGORY.FOOD;
+            case "BEVERAGE":
+                return CATEGORY.BEVERAGE;
+            case "FUEL":
+                return CATEGORY.FUEL;
+            case "OUTFIT":
+                return CATEGORY.OUTFIT;
+            case "SHOPPING":
+                return CATEGORY.SHOPPING;
+            case "ENTERTAINMENT":
+                return CATEGORY.ENTERTAINMENT;
+            case "SALARY":
+                return CATEGORY.SALARY;
+            case "OTHER":
+                return CATEGORY.OTHER;
+            case "DEBT":
+                return CATEGORY.DEBT;
+        }
     }
 }

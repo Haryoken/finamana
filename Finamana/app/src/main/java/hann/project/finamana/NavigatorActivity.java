@@ -22,7 +22,7 @@ import hann.project.finamana.utils.BackupHelper;
 import hann.project.finamana.utils.FeatureGridAdapter;
 
 public class NavigatorActivity extends AppCompatActivity {
-    private final String TABLE_MANAGER="Table Manager";
+    private final String TABLE_MANAGER="Financial Management";
     private final String FINANCIAL_REPORT="Financial Report";
     private final String STATITICS="Statitics";
     enum ImageName {backup,credit_card,drone
@@ -93,7 +93,7 @@ public class NavigatorActivity extends AppCompatActivity {
                     default:
                         break;
                     case TABLE_MANAGER:
-                        Intent toTableIntent = new Intent(NavigatorActivity.this,TableManagerActivity.class);
+                        Intent toTableIntent = new Intent(NavigatorActivity.this,FinancialManagementActivity.class);
                         startActivity(toTableIntent);
                         break;
                     case FINANCIAL_REPORT:
@@ -108,10 +108,7 @@ public class NavigatorActivity extends AppCompatActivity {
             }
 
         });
-//        grid.setAdapter(new ImageAdapter(this));
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-//                android.R.layout.simple_list_item_1, arrNameCity);
-//        grid.setAdapter(adapter);
+
     }
 
 

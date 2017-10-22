@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,20 +14,20 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import hann.project.finamana.controllers.TableManager;
+import hann.project.finamana.controllers.TableListManager;
 import hann.project.finamana.entities.RecordTable;
 import hann.project.finamana.utils.TableItemAdapter;
 
-public class TableManagerActivity extends AppCompatActivity {
+public class FinancialManagementActivity extends AppCompatActivity {
     private final String USERNAME_SP="USERNAME_PREFERENCE";
 
     private GridView tableGrid;
-    private TableManager manager;
+    private TableListManager manager;
     private List<RecordTable> recordTableList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_table_manager);
+        setContentView(R.layout.activity_financial_management);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -38,14 +37,14 @@ public class TableManagerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Snackbar.make(view,"Clicked",Snackbar.LENGTH_SHORT).show();
-                Intent toAddTableIntent = new Intent(TableManagerActivity.this,AddTableActivity.class);
+                Intent toAddTableIntent = new Intent(FinancialManagementActivity.this,AddTableActivity.class);
                 startActivity(toAddTableIntent);
             }
         });
 
         SharedPreferences sp = getSharedPreferences(USERNAME_SP, Context.MODE_PRIVATE);
         String username = sp.getString("USERNAME", "").toString();
-        manager = new TableManager(this);
+        manager = new TableListManager(this);
         tableGrid = (GridView) findViewById(R.id.gridRecordTable);
         recordTableList = manager.getAllRecordTable(username);
         if(recordTableList!=null) {
@@ -54,9 +53,10 @@ public class TableManagerActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-                   Intent toRecordListIntent = new Intent(TableManagerActivity.this,RecordListActivity.class);
-                    toRecordListIntent.putExtra("tableId",recordTableList.get(position).getTableId());
-                    startActivity(toRecordListIntent);
+                   Intent toTableDetailsIntent = new Intent(FinancialManagementActivity.this,TableDetailsActivity.class);
+                    toTableDetailsIntent.putExtra("tableId",recordTableList.get(position).getTableId());
+                    toTableDetailsIntent.putExtra("table",recordTableList.get(position));
+                    startActivity(toTableDetailsIntent);
                 }
             });
         }else {

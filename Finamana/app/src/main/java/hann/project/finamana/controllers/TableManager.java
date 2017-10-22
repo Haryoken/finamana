@@ -1,47 +1,43 @@
 package hann.project.finamana.controllers;
 
 import android.content.Context;
-import android.database.Cursor;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import hann.project.finamana.entities.Record;
-import hann.project.finamana.entities.RecordTable;
 import hann.project.finamana.utils.DBHelper;
 
 /**
- * Created by DUCVINH on 4/10/2017.
+ * Created by DUCVINH on 21/10/2017.
  */
 
-public class TableManager implements ManageTable {
-
+public class TableManager implements ManageRecord {
+    Context context;
     DBHelper helper;
-    private int tableId; //Primary Key
-    private String title;
-    private RecordTable.MONTH month;
-    private int year;
-    private String username;//Foreign Key
-    private double odd;
-    private Date createdDate;
-
     public TableManager(Context context){
-        helper = new DBHelper(context);
+        this.context = context;
+        helper = new DBHelper(this.context);
     }
 
 
-    public List<RecordTable> getAllRecordTable(String username){
-       return helper.getAllRecordTableByUser(username);
+    //TABLE INFO MANAGEMENT
+    public List<Record> getAllRecordsByTableId(int tableId){
+        return helper.getAllRecordsByTableId(tableId);
     }
-    @Override
-    public boolean addTable(RecordTable table) {
-        return helper.addTable(table);
+    public double[] calculateTotal(List<Record> recordList){
+        double totalRevenue=0;
+        double totalExpense=0;
+        double totalOdd = 0;
+        for(Record record:recordList){
+            totalExpense += record.getExpense();
+            totalRevenue += record.getRevenue();
+        }
+        totalOdd = totalRevenue - totalExpense;
+        double[] result = {totalRevenue,totalExpense,totalOdd};
+        return result;
+    }
 
-    }
-    public boolean removeTableFromList(RecordTable table){
-        return helper.removeTable(table);
-    }
+    //RECORD MANAGEMENT
     @Override
     public boolean removeRecordFromTable(int tableId, int RecordId) {
         return false;
