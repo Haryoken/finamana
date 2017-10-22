@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +22,7 @@ import hann.project.finamana.controllers.TableListManager;
 import hann.project.finamana.controllers.TableManager;
 import hann.project.finamana.entities.Record;
 import hann.project.finamana.entities.RecordTable;
+import hann.project.finamana.utils.BackupHelper;
 import hann.project.finamana.utils.RecordAdapter;
 
 public class TableDetailsActivity extends AppCompatActivity {
@@ -26,11 +30,34 @@ public class TableDetailsActivity extends AppCompatActivity {
     private ListView lvRecord;
     List<Record> recordList;
     RecordTable table;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.table_details_menu, menu); //your file name
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.btnAddRecord:
+                Intent toAddRecordIntent = new Intent(TableDetailsActivity.this,AddRecordActivity.class);
+                startActivity(toAddRecordIntent);
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_details);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //INITIALIZING AREA
         tblManager = new TableManager(this);
 

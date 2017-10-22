@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -25,6 +27,7 @@ public class AddTableActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_table);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         manager = new TableListManager(this);
         spYear = (Spinner)findViewById(R.id.spinYear);
@@ -57,5 +60,16 @@ public class AddTableActivity extends AppCompatActivity {
         }
         Intent toTableIntent = new Intent(this,FinancialManagementActivity.class);
         startActivity(toTableIntent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

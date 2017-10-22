@@ -25,7 +25,8 @@
         <activity android:name=".ReportActivity" />
         <activity android:name=".StatiticsActivity" />
         <activity android:name=".AddTableActivity" />
-        <activity android:name=".TableDetailsActivity"></activity>
+        <activity android:name=".TableDetailsActivity" />
+        <activity android:name=".AddRecordActivity"></activity>
     </application>
 
 </manifest>

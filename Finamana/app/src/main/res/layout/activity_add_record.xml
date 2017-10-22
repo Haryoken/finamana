@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:orientation="vertical"
+    tools:context="hann.project.finamana.AddRecordActivity"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/lblNewRecordInfo"
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
+        android:padding="5dp"
+        android:text="New Record"
+        android:textAllCaps="true"
+        android:textStyle="italic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="162dp"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:weightSum="1"
+        android:layout_weight="0.04">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editText3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Description"
+                android:inputType="textMultiLine" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.08"
+                android:paddingLeft="5dp"
+                android:text="Category"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinnerCategory"
+                android:layout_width="186dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/txtMoneyAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Money Amount"
+                android:inputType="numberDecimal" />
+
+
+
+        </LinearLayout>
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rdRevenue"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Revenue" />
+
+            <RadioButton
+                android:id="@+id/rdExpense"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Expense" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+</LinearLayout>
