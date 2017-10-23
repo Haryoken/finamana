@@ -79,6 +79,50 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
     //4. TABLE MANAGEMENT:
+    public RecordTable findTableById(int tableId){
+        String query = "SELECT * FROM " + TABLE_RECORDTABLE + " WHERE " +RECORD_COLLUM_TABLEID+"=?";
+        String[] agrs = {String.valueOf(tableId)};
+        Cursor cursor = myDataBase.rawQuery(query,agrs);
+        if(cursor !=null){
+            if(cursor.moveToNext()){
+
+
+                String month = cursor.getString(cursor.getColumnIndex(RECORDTABLE_COLLUM_MONTH));
+
+                int year = cursor.getInt(cursor.getColumnIndex(RECORDTABLE_COLLUM_YEAR));
+                double odd = cursor.getDouble(cursor.getColumnIndex(RECORDTABLE_COLLUM_ODD)) ;
+                long createdDate = cursor.getLong(cursor.getColumnIndex(RECORDTABLE_COLLUM_CREATEDDATE));
+
+                RecordTable table = new RecordTable(tableId,month,year);
+                table.setOdd(odd);
+                table.setCreatedDate(createdDate);
+                return table;
+            }
+        }
+        return null;
+    }
+    public boolean addRecordToTable(Record record){
+//        private int recordId; //Primary Key
+//        private String description;
+//        private double revenue;
+//        private double expense;
+//        private CATEGORY category;
+//        private int tableId;//Foreign Key
+//        private long recordDate;
+        ContentValues values = new ContentValues();
+        values.put("description",record.getDescription());
+        values.put("revenue",record.getRevenue());
+        values.put("expense",record.getExpense());
+        values.put("category",record.getCategory().toString());
+        values.put("tableId",record.getTableId());
+        values.put("recordDate",record.getRecordDate());
+        if(myDataBase.insert("Record",null,values)>-1){
+            return true;
+        }
+
+        return false;
+    }
+
     public List<Record> getAllRecordsByTableId(int tableId){
         String query = "SELECT * FROM " +TABLE_RECORD + " WHERE " + RECORD_COLLUM_TABLEID+ "=?";
         Cursor cursor = myDataBase.rawQuery(query,new String[]{String.valueOf(tableId)});

@@ -32,6 +32,11 @@ public class RecordTable implements Serializable{
         this.username = username;
         this.createdDate = createdDate;
     }
+    public RecordTable(int tableId, String month, int year) {
+        this.tableId = tableId;
+        this.month = month;
+        this.year = year;
+    }
     public long getCreatedDate() {
         return createdDate;
     }

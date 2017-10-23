@@ -1,6 +1,8 @@
 package hann.project.finamana;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +44,7 @@ public class TableDetailsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.btnAddRecord:
                 Intent toAddRecordIntent = new Intent(TableDetailsActivity.this,AddRecordActivity.class);
+                toAddRecordIntent.putExtra("tableId",table.getTableId());
                 startActivity(toAddRecordIntent);
                 return true;
             case android.R.id.home:
@@ -61,15 +64,20 @@ public class TableDetailsActivity extends AppCompatActivity {
         //INITIALIZING AREA
         tblManager = new TableManager(this);
 
+
+        SharedPreferences sp = getSharedPreferences("USERNAME_PREFERENCE", Context.MODE_PRIVATE);
+        String username = sp.getString("USERNAME", "").toString();
         //GET table from previous Activity
         Intent fromTableManagerIntent = getIntent();
         int tableId= fromTableManagerIntent.getExtras().getInt("tableId");
-        RecordTable table = (RecordTable)fromTableManagerIntent.getExtras().getSerializable("table");
 
+
+        //table = (RecordTable)fromTableManagerIntent.getExtras().getSerializable("table");
+        table = tblManager.findTableById(tableId);
 
 
         TextView owner = (TextView)findViewById(R.id.txtTableOwner);
-        String fullname = new NavigatorManager().getFullname(table.getUsername(),this);
+        String fullname = new NavigatorManager().getFullname(username,this);
         owner.setText(fullname);
 
         TextView title = (TextView)findViewById(R.id.txtTableTitle);

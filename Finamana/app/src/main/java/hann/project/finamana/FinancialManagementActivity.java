@@ -48,7 +48,7 @@ public class FinancialManagementActivity extends AppCompatActivity {
 
                    Intent toTableDetailsIntent = new Intent(FinancialManagementActivity.this,TableDetailsActivity.class);
                     toTableDetailsIntent.putExtra("tableId",recordTableList.get(position).getTableId());
-                    toTableDetailsIntent.putExtra("table",recordTableList.get(position));
+                    //toTableDetailsIntent.putExtra("table",recordTableList.get(position));
                     startActivity(toTableDetailsIntent);
                 }
             });

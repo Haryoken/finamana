@@ -29,7 +29,15 @@ public class Record {
         this.tableId = tableId;
         this.category= category;
     }
+    public Record(long recordDate, String description, int tableId, CATEGORY category) {
+        this.recordDate = recordDate;
 
+        this.description = description;
+        this.revenue =0;
+        this.expense =0;
+        this.tableId = tableId;
+        this.category= category;
+    }
     public Record() {
     }
 
@@ -45,9 +53,7 @@ public class Record {
         return recordId;
     }
 
-    public void setRecordId(int recordId) {
-        this.recordId = recordId;
-    }
+
 
     public String getDescription() {
         return description;

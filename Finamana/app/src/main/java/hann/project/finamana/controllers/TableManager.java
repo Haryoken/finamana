@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.List;
 
 import hann.project.finamana.entities.Record;
+import hann.project.finamana.entities.RecordTable;
 import hann.project.finamana.utils.DBHelper;
 
 /**
@@ -21,6 +22,10 @@ public class TableManager implements ManageRecord {
 
 
     //TABLE INFO MANAGEMENT
+    public RecordTable findTableById(int tableId){
+        return helper.findTableById(tableId);
+    }
+
     public List<Record> getAllRecordsByTableId(int tableId){
         return helper.getAllRecordsByTableId(tableId);
     }
@@ -35,6 +40,11 @@ public class TableManager implements ManageRecord {
         totalOdd = totalRevenue - totalExpense;
         double[] result = {totalRevenue,totalExpense,totalOdd};
         return result;
+    }
+
+    @Override
+    public boolean addRecordToTable(Record record) {
+        return helper.addRecordToTable(record);
     }
 
     //RECORD MANAGEMENT

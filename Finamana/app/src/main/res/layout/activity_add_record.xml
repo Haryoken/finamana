@@ -33,7 +33,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/txtDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -79,7 +79,9 @@
 
 
         </LinearLayout>
+
         <RadioGroup
+            android:id="@+id/rdgMoney"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
