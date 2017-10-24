@@ -61,7 +61,7 @@ public class TableItemAdapter extends BaseAdapter {
             tblHolder.owner = (TextView)view.findViewById(R.id.txtTableOwner);
             tblHolder.odd = (TextView)view.findViewById(R.id.txtTableOdd);
 
-            tblHolder.btnRemoveTable= (TextView) view.findViewById(R.id.btnRemoveTable);
+
 
 
 
@@ -95,34 +95,7 @@ public class TableItemAdapter extends BaseAdapter {
         tblHolder.owner.setText(table.getUsername());// Change to fullname later
 
 
-        tblHolder.btnRemoveTable.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Are you sure to delete this Table ?");
-                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                });
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                        TableListManager manager = new TableListManager(context);
-                        if(manager.removeTableFromList(table)){
-                            tableItemList.remove(table);
-                            notifyDataSetChanged();
-                            Toast.makeText(context," Table has been successfully removed.",Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(context,"Remove failed.",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        });
 
 
         return view;
@@ -133,7 +106,6 @@ static class TableViewHoler{
     TextView createdDate;
     TextView owner;
     TextView odd;
-    TextView btnRemoveTable;
 
     }
 }

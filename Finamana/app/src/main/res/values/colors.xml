@@ -8,4 +8,6 @@
     <color name="grey">#d6ddd6</color>
     <color name="red">#fd0e13</color>
     <color name="green_money">#34a803</color>
+    <color name="red_orange">#ff2301</color>
+    <color name="grey_light">#efefef</color>
 </resources>

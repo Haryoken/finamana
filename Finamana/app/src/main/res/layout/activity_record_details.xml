@@ -20,11 +20,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.14"
+        android:layout_height="162dp"
         android:background="@android:color/white"
         android:orientation="vertical"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_weight="0.46">
+
+
 
 
         <LinearLayout
@@ -119,7 +121,6 @@
 
 
         </LinearLayout>
-
         <TextView
             android:id="@+id/lblDate"
             android:layout_width="68dp"
@@ -128,14 +129,13 @@
             android:paddingLeft="5dp"
             android:text="Date"
             android:textSize="18sp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/txtRecordDate"
+                android:id="@+id/editText3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.08"
@@ -147,7 +147,6 @@
                 android:id="@+id/btnChooseDate"
                 android:layout_width="162dp"
                 android:layout_height="wrap_content"
-                android:onClick="clickChooseDate"
                 android:text="Choose Date" />
 
         </LinearLayout>

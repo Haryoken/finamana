@@ -1,17 +1,26 @@
 package hann.project.finamana;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import hann.project.finamana.controllers.TableManager;
@@ -22,8 +31,17 @@ public class AddRecordActivity extends AppCompatActivity {
     Spinner spinnerCategory;
     EditText moneyAmount;
     RadioGroup rdgMoney;
+    RadioButton rdRevenue;
+    RadioButton rdExpense;
     TableManager manager;
     int tableId;
+    EditText recordDate;
+
+    SimpleDateFormat dateFormatter;
+    //private DatePicker datePicker;
+    private Calendar calendar;
+    private TextView dateView;
+    private int year, month, day;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,20 +51,75 @@ public class AddRecordActivity extends AppCompatActivity {
         Intent fromTableDetialsIntent = getIntent();
         tableId = fromTableDetialsIntent.getExtras().getInt("tableId");
 
-        manager = new TableManager(this);
 
+        manager = new TableManager(this);
+        //INIT SECTION
         description = (EditText)findViewById(R.id.txtDescription);
         spinnerCategory = (Spinner)findViewById(R.id.spinnerCategory);
         moneyAmount = (EditText)findViewById(R.id.txtMoneyAmount);
         rdgMoney = (RadioGroup)findViewById(R.id.rdgMoney);
+        recordDate = (EditText)findViewById(R.id.txtRecordDate);
+        rdRevenue = (RadioButton)findViewById(R.id.rdRevenue);
+        rdExpense = (RadioButton)findViewById(R.id.rdExpense);
+        //SETTING SECTION
+        recordDate.setEnabled(false);
 
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        recordDate.setText(dateFormatter.format(new Date()));
         rdgMoney.check(R.id.rdRevenue);
-        Record.CATEGORY[] categoryList = {Record.CATEGORY.FOOD,Record.CATEGORY.BEVERAGE,Record.CATEGORY.FUEL
+        final Record.CATEGORY[] earnCategories = {Record.CATEGORY.SALARY,Record.CATEGORY.OTHER,Record.CATEGORY.DEBT};
+
+        final Record.CATEGORY[] payCategories = {Record.CATEGORY.FOOD,Record.CATEGORY.BEVERAGE,Record.CATEGORY.FUEL
                                          ,Record.CATEGORY.OUTFIT,Record.CATEGORY.SHOPPING,Record.CATEGORY.ENTERTAINMENT
-                                         ,Record.CATEGORY.SALARY,Record.CATEGORY.OTHER,Record.CATEGORY.DEBT};
-        //String[] categories = {"FOOD","BEVERAGE","FUEL","OUTFIT","SHOPPING","ENTERTAINMENT","SALARY","OTHER","DEBT"};
-        spinnerCategory.setAdapter(new ArrayAdapter<Record.CATEGORY>(this,R.layout.support_simple_spinner_dropdown_item,categoryList));
+                                         ,Record.CATEGORY.OTHER};
+        if(rdRevenue.isChecked()) {
+            spinnerCategory.setAdapter(new ArrayAdapter<Record.CATEGORY>(this, R.layout.support_simple_spinner_dropdown_item, earnCategories));
+        }else{
+            spinnerCategory.setAdapter(new ArrayAdapter<Record.CATEGORY>(this, R.layout.support_simple_spinner_dropdown_item, payCategories));
+        }
+        rdRevenue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinnerCategory.setAdapter(new ArrayAdapter<Record.CATEGORY>(AddRecordActivity.this
+                                                                            , R.layout.support_simple_spinner_dropdown_item
+                                                                            , earnCategories));
+            }
+        });
+        rdExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinnerCategory.setAdapter(new ArrayAdapter<Record.CATEGORY>(AddRecordActivity.this
+                                                                           , R.layout.support_simple_spinner_dropdown_item
+                                                                           , payCategories));
+            }
+        });
+        //DATE PICKER
+
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+
+
     }
+
+    public void clickChooseDate(View view){
+        DatePickerDialog dialog = new DatePickerDialog(AddRecordActivity.this, myDateListener,
+                year, month, day);
+        dialog.setTitle("Arrival Day");
+        dialog.show();
+    }
+
+    private DatePickerDialog.OnDateSetListener myDateListener = new
+            DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker arg0,
+                                      int arg1, int arg2, int arg3) {
+
+                    recordDate.setText(arg1+"-"+(arg2+1)+"-"+arg3);
+                }
+            };
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -78,7 +151,13 @@ public class AddRecordActivity extends AppCompatActivity {
         //TODO add Date picker
         //TODO validate the input
         Record record;
-        long dateInLong = new Date().getTime();
+        long dateInLong=0;
+
+        try{
+        dateInLong = dateFormatter.parse(recordDate.getText().toString()).getTime();
+        }catch (ParseException e){
+            Log.d("AddRecordActivity",e.getMessage());
+        }
         String description = this.description.getText().toString();
         Double moneyAmount = Double.parseDouble(this.moneyAmount.getText().toString());
         Record.CATEGORY category = (Record.CATEGORY) spinnerCategory.getSelectedItem();

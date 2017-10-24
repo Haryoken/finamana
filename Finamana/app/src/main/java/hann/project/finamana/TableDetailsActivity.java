@@ -1,6 +1,8 @@
 package hann.project.finamana;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -110,6 +113,36 @@ public class TableDetailsActivity extends AppCompatActivity {
         }else{
             totalOdd.setTextColor(Color.RED);
         }
+
+        TextView btnDeleteTable = (TextView)findViewById(R.id.btnDeleteTable);
+        btnDeleteTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(TableDetailsActivity.this);
+                builder.setMessage("Are you sure to delete this Table ?");
+                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        TableListManager manager = new TableListManager(TableDetailsActivity.this);
+                        if(manager.removeTableFromList(table)){
+                            Intent toTableListIntent = new Intent(TableDetailsActivity.this, FinancialManagementActivity.class);
+                            startActivity(toTableListIntent);
+                            Toast.makeText(TableDetailsActivity.this," Table has been successfully removed.",Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(TableDetailsActivity.this,"Remove failed.",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
     }
 
