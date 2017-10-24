@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -92,10 +93,19 @@ public class TableDetailsActivity extends AppCompatActivity {
         createdDate.setText(strDate);
 
         recordList = tblManager.getAllRecordsByTableId(table.getTableId());
+        if(recordList!= null) {
+            lvRecord = (ListView) findViewById(R.id.listRecords);
+            lvRecord.setAdapter(new RecordAdapter(this, recordList));
+            lvRecord.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    Intent toRecordListActivity = new Intent(TableDetailsActivity.this,RecordDetailsActivity.class);
+                    toRecordListActivity.putExtra("record",recordList.get(position));
 
-        lvRecord = (ListView)findViewById(R.id.listRecords);
-        lvRecord.setAdapter(new RecordAdapter(this,recordList));
-
+                    startActivity(toRecordListActivity);
+                }
+            });
+        }
         double[] totals = tblManager.calculateTotal(recordList);
 
         TextView totalRevenue = (TextView)findViewById(R.id.txtTotalRevenues);

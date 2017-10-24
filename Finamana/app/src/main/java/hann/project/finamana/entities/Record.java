@@ -1,5 +1,6 @@
 package hann.project.finamana.entities;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.sql.Date;
  */
 
 
-public class Record {
+public class Record implements Serializable {
     public enum CATEGORY{FOOD,BEVERAGE,FUEL,OUTFIT,SHOPPING,ENTERTAINMENT,SALARY,OTHER,DEBT};
 
     //FIELDS

@@ -82,18 +82,7 @@ public class RecordAdapter extends BaseAdapter {
         }
 
 
-        recordHolder.btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
-        recordHolder.btnRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
 
         return view;
