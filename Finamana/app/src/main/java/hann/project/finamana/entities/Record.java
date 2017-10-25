@@ -32,7 +32,6 @@ public class Record implements Serializable {
     }
     public Record(long recordDate, String description, int tableId, CATEGORY category) {
         this.recordDate = recordDate;
-
         this.description = description;
         this.revenue =0;
         this.expense =0;

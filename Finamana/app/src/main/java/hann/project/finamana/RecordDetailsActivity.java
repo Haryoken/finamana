@@ -1,11 +1,15 @@
 package hann.project.finamana;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,9 +19,12 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
+import hann.project.finamana.controllers.TableListManager;
 import hann.project.finamana.controllers.TableManager;
 import hann.project.finamana.entities.Record;
 import hann.project.finamana.utils.BackupHelper;
@@ -60,14 +67,82 @@ public class RecordDetailsActivity extends AppCompatActivity {
         rdRevenue = (RadioButton)findViewById(R.id.rdRevenue);
         rdExpense = (RadioButton)findViewById(R.id.rdExpense);
         btnDeleteRecord = (TextView)findViewById(R.id.btnDeleteRecord);
+
         //SETTING SECTION
         recordDate.setEnabled(false);
+        description.setText(record.getDescription());
 
-        btnDeleteRecord.setOnClickListener(new View.OnClickListener() {
+        if(record.getRevenue() > 0){
+            rdRevenue.setChecked(true);
+            moneyAmount.setText(String.valueOf(record.getRevenue()));
+        }else{
+            rdExpense.setChecked(true);
+            moneyAmount.setText(String.valueOf(record.getExpense()));
+        }
+        SimpleDateFormat formatter  = new SimpleDateFormat("yyyy-MM-dd");
+        recordDate.setText(formatter.format(new Date(record.getRecordDate())));
+
+
+        final Record.CATEGORY[] earnCategories = {Record.CATEGORY.SALARY,Record.CATEGORY.OTHER,Record.CATEGORY.DEBT};
+
+        final Record.CATEGORY[] payCategories = {Record.CATEGORY.FOOD,Record.CATEGORY.BEVERAGE,Record.CATEGORY.FUEL
+                ,Record.CATEGORY.OUTFIT,Record.CATEGORY.SHOPPING,Record.CATEGORY.ENTERTAINMENT
+                ,Record.CATEGORY.OTHER};
+        if(rdRevenue.isChecked()) {
+            spinnerCategory.setAdapter(new ArrayAdapter<Record.CATEGORY>(this, R.layout.support_simple_spinner_dropdown_item, earnCategories));
+        }else{
+            spinnerCategory.setAdapter(new ArrayAdapter<Record.CATEGORY>(this, R.layout.support_simple_spinner_dropdown_item, payCategories));
+        }
+        rdRevenue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Implement delete Record
+                spinnerCategory.setAdapter(new ArrayAdapter<Record.CATEGORY>(RecordDetailsActivity.this
+                        , R.layout.support_simple_spinner_dropdown_item
+                        , earnCategories));
             }
+        });
+        rdExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinnerCategory.setAdapter(new ArrayAdapter<Record.CATEGORY>(RecordDetailsActivity.this
+                        , R.layout.support_simple_spinner_dropdown_item
+                        , payCategories));
+            }
+        });
+        int categoryPosition = manager.getCategoryPosition(record.getCategory(),(ArrayAdapter)spinnerCategory.getAdapter());
+        if( categoryPosition> -1){
+            spinnerCategory.setSelection(categoryPosition);
+        }
+
+        btnDeleteRecord.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(RecordDetailsActivity.this);
+                        builder.setMessage("Are you sure to delete this Transaction ?");
+                        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        });
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                                if(manager.removeRecordFromTable(record)){
+                                    Intent toTableListIntent = new Intent(RecordDetailsActivity.this, TableDetailsActivity.class);
+                                    toTableListIntent.putExtra("tableId",record.getTableId());
+                                    startActivity(toTableListIntent);
+                                    Toast.makeText(RecordDetailsActivity.this," Record has been successfully removed.",Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(RecordDetailsActivity.this,"Remove failed.",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+
         });
 
     }
@@ -78,7 +153,15 @@ public class RecordDetailsActivity extends AppCompatActivity {
                 onBackPressed();
                 return true;
             case R.id.btnSave:
-                //TODO implement update record
+                Record editedRecord = prepareUpdateRecord();
+                if(manager.updateRecord(editedRecord)){
+                    Intent toTableListIntent = new Intent(RecordDetailsActivity.this, TableDetailsActivity.class);
+                    toTableListIntent.putExtra("tableId",record.getTableId());
+                    startActivity(toTableListIntent);
+                    Toast.makeText(RecordDetailsActivity.this,"Updated successfully.",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(RecordDetailsActivity.this,"Update failed.",Toast.LENGTH_SHORT).show();
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -90,6 +173,28 @@ public class RecordDetailsActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    private Record prepareUpdateRecord(){
+        String description = this.description.getText().toString();
+        Double moneyAmount = Double.parseDouble(this.moneyAmount.getText().toString());
+        Record.CATEGORY category = (Record.CATEGORY)this.spinnerCategory.getSelectedItem();
 
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date recordDate = null;
+        try {
+            recordDate = formatter.parse(this.recordDate.getText().toString());
+        }catch(ParseException e){
+            Log.d("RecrodDetailsActivity", "prepareUpdateRecord: "+e.getMessage());
+        }
+        long dateInLong = recordDate.getTime();
+
+        Record editedRecord = new Record(dateInLong,description,this.record.getTableId(),category);
+        if(rdExpense.isChecked()){
+            editedRecord.setExpense(moneyAmount);
+        }
+        if(rdRevenue.isChecked()){
+            editedRecord.setRevenue(moneyAmount);
+        }
+        return editedRecord;
+    }
 
 }

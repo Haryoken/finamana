@@ -24,7 +24,7 @@
         android:background="@android:color/white"
         android:orientation="vertical"
         android:weightSum="1"
-        android:layout_weight="0.46">
+        android:layout_weight="0.52">
 
 
 
@@ -135,7 +135,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/txtRecordDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.08"

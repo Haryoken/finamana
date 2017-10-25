@@ -55,8 +55,8 @@ public class RecordAdapter extends BaseAdapter {
             recordHolder.description =(TextView)view.findViewById(R.id.txtDescription);
             recordHolder.moneyAmount = (TextView)view.findViewById(R.id.txtRecordMoneyAmount);
 
-            recordHolder.btnEdit=(ImageButton)view.findViewById(R.id.btnEditRecord);
-            recordHolder.btnRemove=(ImageButton)view.findViewById(R.id.btnRemoveRecord);
+            //recordHolder.btnEdit=(ImageButton)view.findViewById(R.id.btnEditRecord);
+            //recordHolder.btnRemove=(ImageButton)view.findViewById(R.id.btnRemoveRecord);
 
             view.setTag(recordHolder);
         }else{
@@ -93,7 +93,7 @@ public class RecordAdapter extends BaseAdapter {
         TextView category;
         TextView description;
         TextView moneyAmount;
-        ImageButton btnEdit;
-        ImageButton btnRemove;
+        //ImageButton btnEdit;
+        //ImageButton btnRemove;
     }
 }

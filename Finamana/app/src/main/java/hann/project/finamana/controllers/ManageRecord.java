@@ -9,7 +9,7 @@ import hann.project.finamana.entities.RecordTable;
 
 public interface ManageRecord {
     public boolean addRecordToTable(Record record);
-    public boolean removeRecordFromTable(int tableId, int RecordId);
+    public boolean removeRecordFromTable(Record record);
     public boolean updateRecord(Record record);
     public void viewRecordDetails();
     public void sortByCategory();

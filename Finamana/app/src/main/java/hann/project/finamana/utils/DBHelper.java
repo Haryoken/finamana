@@ -79,6 +79,31 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
     //4. TABLE MANAGEMENT:
+    public boolean updateRecord(Record record){
+        ContentValues values = new ContentValues();
+        values.put("description",record.getDescription());
+        values.put("revenue",record.getRevenue());
+        values.put("expense",record.getExpense());
+        values.put("category",record.getCategory().toString());
+        values.put("tableId",record.getTableId());
+        values.put("recordDate",record.getRecordDate());
+        int i = myDataBase.update(TABLE_RECORD,values,
+                RECORD_COLLUM_RECORDID+"=?" //TODO fix bug here
+                ,new String[]{String.valueOf(record.getRecordId())});
+        if(i >0){
+            return true;
+        }
+
+        return false;
+    }
+    public boolean removeRecordFromTable(Record record){
+        int result = myDataBase.delete(TABLE_RECORD
+                                      ,RECORD_COLLUM_RECORDID+"=?"
+                                      ,new String[]{String.valueOf(record.getRecordId())});
+        return result >0;
+
+    }
+
     public RecordTable findTableById(int tableId){
         String query = "SELECT * FROM " + TABLE_RECORDTABLE + " WHERE " +RECORD_COLLUM_TABLEID+"=?";
         String[] agrs = {String.valueOf(tableId)};
@@ -102,13 +127,6 @@ public class DBHelper extends SQLiteOpenHelper{
         return null;
     }
     public boolean addRecordToTable(Record record){
-//        private int recordId; //Primary Key
-//        private String description;
-//        private double revenue;
-//        private double expense;
-//        private CATEGORY category;
-//        private int tableId;//Foreign Key
-//        private long recordDate;
         ContentValues values = new ContentValues();
         values.put("description",record.getDescription());
         values.put("revenue",record.getRevenue());
@@ -116,7 +134,7 @@ public class DBHelper extends SQLiteOpenHelper{
         values.put("category",record.getCategory().toString());
         values.put("tableId",record.getTableId());
         values.put("recordDate",record.getRecordDate());
-        if(myDataBase.insert("Record",null,values)>-1){
+        if(myDataBase.insert(TABLE_RECORD,null,values)>-1){
             return true;
         }
 

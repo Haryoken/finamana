@@ -1,6 +1,7 @@
 package hann.project.finamana.controllers;
 
 import android.content.Context;
+import android.widget.ArrayAdapter;
 
 import java.util.List;
 
@@ -22,6 +23,15 @@ public class TableManager implements ManageRecord {
 
 
     //TABLE INFO MANAGEMENT
+    public int getCategoryPosition(Record.CATEGORY category, ArrayAdapter<Record.CATEGORY> adapter){
+
+        for(int i = 0; i < adapter.getCount(); i++){
+            if(category == adapter.getItem(i)){
+                return i;
+            }
+        }
+        return -1;
+    }
     public RecordTable findTableById(int tableId){
         return helper.findTableById(tableId);
     }
@@ -49,13 +59,13 @@ public class TableManager implements ManageRecord {
 
     //RECORD MANAGEMENT
     @Override
-    public boolean removeRecordFromTable(int tableId, int RecordId) {
-        return false;
+    public boolean removeRecordFromTable(Record record) {
+        return helper.removeRecordFromTable(record);
     }
 
     @Override
     public boolean updateRecord(Record record) {
-        return false;
+        return helper.updateRecord(record);
     }
 
     @Override
