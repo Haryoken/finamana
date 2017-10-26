@@ -52,7 +52,8 @@ public class TableDetailsActivity extends AppCompatActivity {
                 startActivity(toAddRecordIntent);
                 return true;
             case android.R.id.home:
-                onBackPressed();
+                Intent backToFinaManaIntent = new Intent(TableDetailsActivity.this,FinancialManagementActivity.class);
+                startActivity(backToFinaManaIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -93,19 +94,6 @@ public class TableDetailsActivity extends AppCompatActivity {
         createdDate.setText(strDate);
 
         recordList = tblManager.getAllRecordsByTableId(table.getTableId());
-        if(recordList!= null) {
-            lvRecord = (ListView) findViewById(R.id.listRecords);
-            lvRecord.setAdapter(new RecordAdapter(this, recordList));
-            lvRecord.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    Intent toRecordListActivity = new Intent(TableDetailsActivity.this,RecordDetailsActivity.class);
-                    toRecordListActivity.putExtra("record",recordList.get(position));
-
-                    startActivity(toRecordListActivity);
-                }
-            });
-        }
         double[] totals = tblManager.calculateTotal(recordList);
 
         TextView totalRevenue = (TextView)findViewById(R.id.txtTotalRevenues);
@@ -122,6 +110,22 @@ public class TableDetailsActivity extends AppCompatActivity {
             totalOdd.setTextColor(Color.rgb(100,150,100));
         }else{
             totalOdd.setTextColor(Color.RED);
+        }
+        table.setOdd(totals[2]);
+        boolean result =tblManager.updateTableOdd(table);
+
+        if(recordList!= null) {
+            lvRecord = (ListView) findViewById(R.id.listRecords);
+            lvRecord.setAdapter(new RecordAdapter(this, recordList));
+            lvRecord.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    Intent toRecordListActivity = new Intent(TableDetailsActivity.this,RecordDetailsActivity.class);
+                    toRecordListActivity.putExtra("record",recordList.get(position));
+
+                    startActivity(toRecordListActivity);
+                }
+            });
         }
 
         TextView btnDeleteTable = (TextView)findViewById(R.id.btnDeleteTable);

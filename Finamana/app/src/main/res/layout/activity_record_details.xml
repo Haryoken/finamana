@@ -147,6 +147,7 @@
                 android:id="@+id/btnChooseDate"
                 android:layout_width="162dp"
                 android:layout_height="wrap_content"
+                android:onClick="clickChooseDate"
                 android:text="Choose Date" />
 
         </LinearLayout>

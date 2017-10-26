@@ -23,6 +23,9 @@ public class TableManager implements ManageRecord {
 
 
     //TABLE INFO MANAGEMENT
+    public boolean updateTableOdd(RecordTable table){
+        return helper.updateTableOdd(table);
+    }
     public int getCategoryPosition(Record.CATEGORY category, ArrayAdapter<Record.CATEGORY> adapter){
 
         for(int i = 0; i < adapter.getCount(); i++){

@@ -1,6 +1,7 @@
 package hann.project.finamana;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -44,7 +46,6 @@ public class RecordDetailsActivity extends AppCompatActivity {
     SimpleDateFormat dateFormatter;
     //private DatePicker datePicker;
     private Calendar calendar;
-    private TextView dateView;
     private int year, month, day;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class RecordDetailsActivity extends AppCompatActivity {
 
         Intent fromTableDetialsIntent = getIntent();
         record = (Record)fromTableDetialsIntent.getExtras().getSerializable("record");
-
+        int recordId = record.getRecordId();
 
         manager = new TableManager(this);
         //INIT SECTION
@@ -172,7 +173,25 @@ public class RecordDetailsActivity extends AppCompatActivity {
         inflater.inflate(R.menu.record_details_menu, menu); //your file name
         return super.onCreateOptionsMenu(menu);
     }
+    public void clickChooseDate(View view){
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog dialog = new DatePickerDialog(RecordDetailsActivity.this, recorDetailsDateListener,
+                year, month, day);
+        dialog.setTitle("Arrival Day");
+        dialog.show();
+    }
+    private DatePickerDialog.OnDateSetListener recorDetailsDateListener = new
+            DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker arg0,
+                                      int arg1, int arg2, int arg3) {
 
+                    recordDate.setText(arg1+"-"+(arg2+1)+"-"+arg3);
+                }
+            };
     private Record prepareUpdateRecord(){
         String description = this.description.getText().toString();
         Double moneyAmount = Double.parseDouble(this.moneyAmount.getText().toString());
@@ -186,8 +205,8 @@ public class RecordDetailsActivity extends AppCompatActivity {
             Log.d("RecrodDetailsActivity", "prepareUpdateRecord: "+e.getMessage());
         }
         long dateInLong = recordDate.getTime();
-
-        Record editedRecord = new Record(dateInLong,description,this.record.getTableId(),category);
+        int recordId = record.getRecordId();
+        Record editedRecord = new Record(dateInLong,recordId,description,this.record.getTableId(),category);
         if(rdExpense.isChecked()){
             editedRecord.setExpense(moneyAmount);
         }

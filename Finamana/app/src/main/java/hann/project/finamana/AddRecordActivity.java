@@ -40,7 +40,6 @@ public class AddRecordActivity extends AppCompatActivity {
     SimpleDateFormat dateFormatter;
     //private DatePicker datePicker;
     private Calendar calendar;
-    private TextView dateView;
     private int year, month, day;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,8 +147,6 @@ public class AddRecordActivity extends AppCompatActivity {
         }
     }
     public Record prepareRecord(){
-        //TODO add Date picker
-        //TODO validate the input
         Record record;
         long dateInLong=0;
 

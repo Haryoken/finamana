@@ -71,7 +71,8 @@ public class FinancialManagementActivity extends AppCompatActivity {
                 startActivity(toAddTableIntent);
                 return true;
             case android.R.id.home:
-                onBackPressed();
+                Intent backToFinaManaIntent = new Intent(FinancialManagementActivity.this,NavigatorActivity.class);
+                startActivity(backToFinaManaIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -79,6 +79,12 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
     //4. TABLE MANAGEMENT:
+    public boolean updateTableOdd(RecordTable table){
+        ContentValues values = new ContentValues();
+        values.put("odd",table.getOdd());
+        return myDataBase.update(TABLE_RECORDTABLE,values,RECORDTABLE_COLLUM_TABLEID+"=?",new String[]{String.valueOf(table.getTableId())}) > 0;
+
+    }
     public boolean updateRecord(Record record){
         ContentValues values = new ContentValues();
         values.put("description",record.getDescription());
@@ -87,14 +93,8 @@ public class DBHelper extends SQLiteOpenHelper{
         values.put("category",record.getCategory().toString());
         values.put("tableId",record.getTableId());
         values.put("recordDate",record.getRecordDate());
-        int i = myDataBase.update(TABLE_RECORD,values,
-                RECORD_COLLUM_RECORDID+"=?" //TODO fix bug here
-                ,new String[]{String.valueOf(record.getRecordId())});
-        if(i >0){
-            return true;
-        }
-
-        return false;
+        int recordId = record.getRecordId();
+        return  myDataBase.update(TABLE_RECORD,values,RECORD_COLLUM_RECORDID+"=?",new String[]{String.valueOf(recordId)}) >0;
     }
     public boolean removeRecordFromTable(Record record){
         int result = myDataBase.delete(TABLE_RECORD
