@@ -142,7 +142,8 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     public List<Record> getAllRecordsByTableId(int tableId){
-        String query = "SELECT * FROM " +TABLE_RECORD + " WHERE " + RECORD_COLLUM_TABLEID+ "=?";
+        String query = "SELECT * FROM " +TABLE_RECORD + " WHERE " + RECORD_COLLUM_TABLEID+ "=? " +
+                        "ORDER BY "+RECORD_COLLUM_RECORDDATE + " DESC";
         Cursor cursor = myDataBase.rawQuery(query,new String[]{String.valueOf(tableId)});
 
         List<Record> recordList = new ArrayList<Record>();
@@ -173,24 +174,37 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     //3. TABLE LIST MANAGEMENT:
+    public boolean isTableExisted(RecordTable table){
+        String query = "SELECT * FROM " +TABLE_RECORDTABLE +" WHERE "
+                        + RECORDTABLE_COLLUM_MONTH+"=? AND "
+                        + RECORDTABLE_COLLUM_YEAR +"=?";
+        String[] agrs = {table.getMonth(),String.valueOf(table.getYear())};
+        Cursor cursor = myDataBase.rawQuery(query,agrs);
+        return cursor.moveToNext(); //If cursor null return false.
+    }
     public boolean removeTable(RecordTable table){
 
         int result = myDataBase.delete(TABLE_RECORDTABLE,RECORDTABLE_COLLUM_TABLEID+"=?",new String[]{String.valueOf(table.getTableId())});
         return result >0;
     }
     public boolean addTable(RecordTable table){
-        ContentValues values = new ContentValues();
-        values.put("month",table.getMonth());//bug here
-        values.put("year",table.getYear());
-        values.put("username",table.getUsername());
-        values.put("createdDate",table.getCreatedDate());
-        if(myDataBase.insert(TABLE_RECORDTABLE,RECORDTABLE_COLLUM_ODD,values)>-1){
-            return true;
+        if(!isTableExisted(table)) {
+
+
+            ContentValues values = new ContentValues();
+            values.put("month", table.getMonth());//bug here
+            values.put("year", table.getYear());
+            values.put("username", table.getUsername());
+            values.put("createdDate", table.getCreatedDate());
+            if (myDataBase.insert(TABLE_RECORDTABLE, RECORDTABLE_COLLUM_ODD, values) > -1) {
+                return true;
+            }
         }
         return false;
     }
     public List<RecordTable> getAllRecordTableByUser(String username){
-        String query = "SELECT * FROM "+TABLE_RECORDTABLE + " WHERE "+RECORDTABLE_COLLUM_USERNAME+"=?";
+        String query = "SELECT * FROM "+TABLE_RECORDTABLE + " WHERE "+RECORDTABLE_COLLUM_USERNAME+"=?"+
+                       "ORDER BY "+RECORDTABLE_COLLUM_YEAR + " DESC";
         String[] selectionAgrs = {username};
         Cursor cursor = myDataBase.rawQuery(query,selectionAgrs);
 

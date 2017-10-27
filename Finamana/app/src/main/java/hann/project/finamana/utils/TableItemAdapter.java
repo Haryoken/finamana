@@ -88,7 +88,7 @@ public class TableItemAdapter extends BaseAdapter {
             tblHolder.odd.setText("+"+String.format("%,.2f", odd));
         } else if(odd < 0){
             tblHolder.odd.setTextColor(Color.RED);
-            tblHolder.odd.setText("-"+String.format("%,.2f", odd));
+            tblHolder.odd.setText(String.format("%,.2f", odd));
         } else if(odd == 0){
             tblHolder.odd.setText("0");
         }

@@ -69,6 +69,31 @@ public class RecordDetailsActivity extends AppCompatActivity {
         rdExpense = (RadioButton)findViewById(R.id.rdExpense);
         btnDeleteRecord = (TextView)findViewById(R.id.btnDeleteRecord);
 
+
+        //VALIDATION SECTION
+        description.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                String text = description.getText().toString();
+                if(description.getText().toString().length() > 150){
+                    description.setError("Nahh. Make sure you won't tell me longer than 150 characters.");
+                }
+            }
+        });
+        moneyAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+
+                if (Double.parseDouble(moneyAmount.getText().toString()) == 0) {
+                    moneyAmount.setError("Oh common!! No transaction equals 0.");
+                }
+                if (moneyAmount.getText().toString().equals("")) {
+                    moneyAmount.setError("Hey hey!! Transaction must have a change on money.");
+                }
+
+            }
+        });
+
         //SETTING SECTION
         recordDate.setEnabled(false);
         description.setText(record.getDescription());
@@ -180,6 +205,7 @@ public class RecordDetailsActivity extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog dialog = new DatePickerDialog(RecordDetailsActivity.this, recorDetailsDateListener,
                 year, month, day);
+
         dialog.setTitle("Arrival Day");
         dialog.show();
     }

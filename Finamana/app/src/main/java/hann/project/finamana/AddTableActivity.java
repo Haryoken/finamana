@@ -56,7 +56,7 @@ public class AddTableActivity extends AppCompatActivity {
         if(manager.addTable(table)){
             Toast.makeText(this, "A table has successfully added.", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this, "Failed to add new table.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Table Existed, failed to create.", Toast.LENGTH_SHORT).show();
         }
         Intent toTableIntent = new Intent(this,FinancialManagementActivity.class);
         startActivity(toTableIntent);

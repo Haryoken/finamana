@@ -25,6 +25,7 @@ import java.util.Date;
 
 import hann.project.finamana.controllers.TableManager;
 import hann.project.finamana.entities.Record;
+import hann.project.finamana.entities.RecordTable;
 
 public class AddRecordActivity extends AppCompatActivity {
     EditText description;
@@ -60,6 +61,29 @@ public class AddRecordActivity extends AppCompatActivity {
         recordDate = (EditText)findViewById(R.id.txtRecordDate);
         rdRevenue = (RadioButton)findViewById(R.id.rdRevenue);
         rdExpense = (RadioButton)findViewById(R.id.rdExpense);
+
+        //VALIDATION SECTION
+        description.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                String text = description.getText().toString();
+                if(description.getText().toString().length() > 150){
+                    description.setError("Nahh. Make sure you won't tell me longer than 150 characters.");
+                }
+            }
+        });
+        moneyAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+
+                    if (Double.parseDouble(moneyAmount.getText().toString()) == 0) {
+                        moneyAmount.setError("Oh common!! No transaction equals 0.");
+                    }
+
+            }
+        });
+
+
         //SETTING SECTION
         recordDate.setEnabled(false);
 
@@ -146,7 +170,7 @@ public class AddRecordActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    public Record prepareRecord(){
+    private Record prepareRecord(){
         Record record;
         long dateInLong=0;
 
@@ -172,5 +196,12 @@ public class AddRecordActivity extends AppCompatActivity {
                 break;
         }
         return record;
+    }
+    private boolean validateRecord(Record record){
+        String description = record.getDescription();
+        if(description== null && description.equals("")){
+            return false;
+        }
+        return true;
     }
 }
