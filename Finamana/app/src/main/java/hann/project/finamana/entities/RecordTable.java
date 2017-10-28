@@ -18,6 +18,7 @@ public class RecordTable implements Serializable{
     private int year;
     private String username;//Foreign Key
     private double odd;
+    private double debt;
     private long createdDate;
 
     public RecordTable(int tableId, String month, int year, String username) {
@@ -49,6 +50,15 @@ public class RecordTable implements Serializable{
 //        return title;
 //    }
 //
+
+    public double getDebt() {
+        return debt;
+    }
+
+    public void setDebt(double debt) {
+        this.debt = debt;
+    }
+
 //    public void setTitle(String title) {
 //        this.title = title;
 //    }

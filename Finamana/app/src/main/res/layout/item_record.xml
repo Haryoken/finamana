@@ -2,113 +2,80 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
     android:weightSum="1">
 
-    <TableLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtRecordDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:text="RECORD_DATE"
+            android:textAllCaps="true"
+            android:textColor="@color/green_unknown"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:text="Category"
+            android:textAlignment="textEnd"
+            android:textAllCaps="true"
+            android:textColor="@color/blue_smoke"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.01"
-        android:background="@android:color/white">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal"
+        android:textAlignment="center">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/txtDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="Description."
+            android:textAlignment="viewStart"
+            android:textSize="18sp" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/txtRecordDate"
-                android:layout_width="200sp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8sp"
-                android:text="DATE"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
+        android:orientation="horizontal">
 
-                android:textAllCaps="true"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txtCategory"
-                android:layout_width="200sp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8sp"
-                android:gravity="end"
-                android:text="CATEGORY"
-                android:paddingRight="5dp"
-                android:textAlignment="textEnd"
-                android:textAllCaps="true"
-                android:textColor="@color/blue_smoke"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/txtDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20sp"
-                android:layout_marginRight="20sp"
-
-                android:layout_span="2"
-                android:ems="10"
-                android:gravity="start"
-                android:text="London Bridge is falling down falling down falling down. London bridge is falling down. My fair lady."
-                android:textAlignment="viewStart"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:textStyle="italic" />
-        </TableRow>
-
-
-        <TableRow
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <TextView
-                android:id="@+id/txtRecordMoneyAmount"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8sp"
-                android:layout_span="2"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="MONEY_AMOUNT"
-
-                android:textAllCaps="true"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/btnEditRecord"-->
-                <!--android:layout_width="30dp"-->
-                <!--android:layout_height="30dp"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:background="@null"-->
-                <!--android:scaleType="fitXY"-->
-                <!--android:tint="@android:color/black"-->
-                <!--android:tintMode="multiply"-->
-                <!--app:srcCompat="@android:drawable/ic_menu_edit" />-->
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/btnRemoveRecord"-->
-                <!--android:layout_width="36dp"-->
-                <!--android:layout_height="36dp"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:background="@null"-->
-                <!--android:tint="@android:color/black"-->
-                <!--app:srcCompat="@android:drawable/ic_delete" />-->
-
-        </TableRow>
-
-    </TableLayout>
+        <TextView
+            android:id="@+id/txtRecordMoneyAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:text="Money Amount"
+            android:textAllCaps="true"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -82,6 +82,7 @@ public class DBHelper extends SQLiteOpenHelper{
     public boolean updateTableOdd(RecordTable table){
         ContentValues values = new ContentValues();
         values.put("odd",table.getOdd());
+        values.put("debt",table.getDebt());
         return myDataBase.update(TABLE_RECORDTABLE,values,RECORDTABLE_COLLUM_TABLEID+"=?",new String[]{String.valueOf(table.getTableId())}) > 0;
 
     }
@@ -143,7 +144,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     public List<Record> getAllRecordsByTableId(int tableId){
         String query = "SELECT * FROM " +TABLE_RECORD + " WHERE " + RECORD_COLLUM_TABLEID+ "=? " +
-                        "ORDER BY "+RECORD_COLLUM_RECORDDATE + " DESC";
+                        "ORDER BY "+RECORD_COLLUM_RECORDID + " DESC";
         Cursor cursor = myDataBase.rawQuery(query,new String[]{String.valueOf(tableId)});
 
         List<Record> recordList = new ArrayList<Record>();
@@ -157,7 +158,7 @@ public class DBHelper extends SQLiteOpenHelper{
                 String cateString = cursor.getString(cursor.getColumnIndex(RECORD_COLLUM_CATEGORY));
                 Record.CATEGORY  category = Record.parseCATEGORY(cateString);
                 long recordDate = cursor.getLong(cursor.getColumnIndex(RECORD_COLLUM_RECORDDATE));
-
+                System.out.println("Record Date: "+recordDate);
                 Record record = new Record(recordDate,recordId,description,tableId,category);
                 if(expense != 0){
                     record.setExpense(expense);

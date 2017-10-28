@@ -42,6 +42,7 @@ public class AddRecordActivity extends AppCompatActivity {
     //private DatePicker datePicker;
     private Calendar calendar;
     private int year, month, day;
+    long time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +95,7 @@ public class AddRecordActivity extends AppCompatActivity {
 
         final Record.CATEGORY[] payCategories = {Record.CATEGORY.FOOD,Record.CATEGORY.BEVERAGE,Record.CATEGORY.FUEL
                                          ,Record.CATEGORY.OUTFIT,Record.CATEGORY.SHOPPING,Record.CATEGORY.ENTERTAINMENT
-                                         ,Record.CATEGORY.OTHER};
+                                         ,Record.CATEGORY.OTHER, Record.CATEGORY.DEBT_PAY};
         if(rdRevenue.isChecked()) {
             spinnerCategory.setAdapter(new ArrayAdapter<Record.CATEGORY>(this, R.layout.support_simple_spinner_dropdown_item, earnCategories));
         }else{
@@ -153,8 +154,10 @@ public class AddRecordActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
         switch (item.getItemId()) {
             case R.id.btnDone:
+                time = calendar.getTimeInMillis(); // For Sorting
                 Record record = prepareRecord();
                 if(manager.addRecordToTable(record)){
+
                     Toast.makeText(this,"Successfully added a new record to table.",Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(this,"Failed to add a new record to table.",Toast.LENGTH_SHORT).show();

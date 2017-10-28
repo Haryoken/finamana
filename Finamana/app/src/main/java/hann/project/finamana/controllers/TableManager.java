@@ -46,12 +46,19 @@ public class TableManager implements ManageRecord {
         double totalRevenue=0;
         double totalExpense=0;
         double totalOdd = 0;
+        double debt = 0;
         for(Record record:recordList){
+            if(record.getCategory().toString().equals("DEBT")){
+                debt+=record.getRevenue();
+            }
+            if(record.getCategory().toString().equals("DEBT_PAY")){
+                debt-=record.getExpense();
+            }
             totalExpense += record.getExpense();
             totalRevenue += record.getRevenue();
         }
         totalOdd = totalRevenue - totalExpense;
-        double[] result = {totalRevenue,totalExpense,totalOdd};
+        double[] result = {totalRevenue,totalExpense,totalOdd,debt};
         return result;
     }
 

@@ -9,7 +9,7 @@ import java.sql.Date;
 
 
 public class Record implements Serializable {
-    public enum CATEGORY{FOOD,BEVERAGE,FUEL,OUTFIT,SHOPPING,ENTERTAINMENT,SALARY,OTHER,DEBT};
+    public enum CATEGORY{FOOD,BEVERAGE,FUEL,OUTFIT,SHOPPING,ENTERTAINMENT,SALARY,OTHER,DEBT,DEBT_PAY};
 
     //FIELDS
 
@@ -94,8 +94,8 @@ public class Record implements Serializable {
         this.tableId = tableId;
     }
 
-    public static Record.CATEGORY parseCATEGORY(String monthString){
-        switch (monthString){
+    public static Record.CATEGORY parseCATEGORY(String categoryString){
+        switch (categoryString){
             //FOOD,BEVERAGE,FUEL,OUTFIT,SHOPPING,ENTERTAINMENT,SALARY,OTHER
             default:
                 return null;
@@ -117,6 +117,8 @@ public class Record implements Serializable {
                 return CATEGORY.OTHER;
             case "DEBT":
                 return CATEGORY.DEBT;
+            case "DEBT_PAY":
+                return CATEGORY.DEBT_PAY;
         }
     }
 }
