@@ -111,6 +111,31 @@ public class TableDetailsActivity extends AppCompatActivity {
 
         recordList = tblManager.getAllRecordsByTableId(table.getTableId());
 
+        double[] totals = tblManager.calculateTotal(recordList);
+
+
+        totalRevenue.setText(String.format("%,.2f",totals[0]));
+        totalRevenue.setTextColor(Color.rgb(100,150,100));
+
+        totalExpense.setText(String.format("%,.2f",totals[1]));
+        totalExpense.setTextColor(Color.RED);
+
+
+        totalOdd.setText(String.format("%,.2f",totals[2]));
+        if(totals[2] > 0){
+            totalOdd.setTextColor(Color.rgb(100,150,100));
+        }else{
+            totalOdd.setTextColor(Color.RED);
+        }
+
+        debt = (TextView)findViewById(R.id.txtDebt);
+        debt.setText(String.format("%,.2f",totals[3]));
+        debt.setTextColor(Color.rgb(219,112,49));
+
+        table.setOdd(totals[2]);
+        table.setDebt(totals[3]);
+        boolean result =tblManager.updateTableOdd(table);
+
 
         if(recordList!= null) {
             lvRecord = (ListView) findViewById(R.id.listRecords);
@@ -158,30 +183,7 @@ public class TableDetailsActivity extends AppCompatActivity {
 
 
 
-        double[] totals = tblManager.calculateTotal(recordList);
 
-
-        totalRevenue.setText(String.format("%,.2f",totals[0]));
-        totalRevenue.setTextColor(Color.rgb(100,150,100));
-
-        totalExpense.setText(String.format("%,.2f",totals[1]));
-        totalExpense.setTextColor(Color.RED);
-
-
-        totalOdd.setText(String.format("%,.2f",totals[2]));
-        if(totals[2] > 0){
-            totalOdd.setTextColor(Color.rgb(100,150,100));
-        }else{
-            totalOdd.setTextColor(Color.RED);
-        }
-
-        debt = (TextView)findViewById(R.id.txtDebt);
-        debt.setText(String.format("%,.2f",totals[3]));
-        debt.setTextColor(Color.rgb(219,112,49));
-
-        table.setOdd(totals[2]);
-        table.setDebt(totals[3]);
-        boolean result =tblManager.updateTableOdd(table);
 
     }
 

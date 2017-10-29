@@ -13,9 +13,10 @@
         android:id="@+id/lblCurrentMonthReport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:text="CURRENT MONTH"
         android:textAllCaps="true"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="italic" />
 
     <LinearLayout
@@ -23,7 +24,34 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/lblMonthTableName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:text="Table"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtMonthTableName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="Not recorded yet"
+                android:textAlignment="viewEnd"
+                android:textAllCaps="true"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -46,10 +74,10 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="Revenue"
+                android:text="0"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="true"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -59,7 +87,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/lblExpense1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -74,10 +102,54 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="Expense"
+                android:text="0"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="true"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:background="#FF909090"
+                android:padding="2dip" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblNetIncome1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:text="Net Income"
                 android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtMonthNetIncome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="0"
+                android:textAlignment="viewEnd"
+                android:textAllCaps="true"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -102,9 +174,25 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="DEBT"
+                android:text="0"
                 android:textAlignment="viewEnd"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:background="#FF909090"
+                android:padding="2dip" />
         </LinearLayout>
 
         <LinearLayout
@@ -129,10 +217,10 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="Balance"
+                android:text="0"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="true"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -140,9 +228,11 @@
         android:id="@+id/lblOverall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:paddingTop="10dp"
         android:text="Overall"
         android:textAllCaps="true"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="italic" />
 
     <LinearLayout
@@ -173,10 +263,11 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="Revenue"
+                android:text="0"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="true"
-                android:textSize="16sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -201,10 +292,56 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="Expense"
+                android:text="0"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="true"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:background="#FF909090"
+                android:padding="2dip" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblNetIncome2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:text="Net Income"
                 android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtAllNetIncome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="0"
+                android:textAlignment="viewEnd"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -229,10 +366,27 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="Debt"
+                android:text="0"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="true"
-                android:textSize="16sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/line4"
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:background="#FF909090"
+                android:padding="2dip" />
         </LinearLayout>
 
         <LinearLayout
@@ -257,10 +411,11 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="Balance"
+                android:text="0"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="true"
-                android:textSize="16sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

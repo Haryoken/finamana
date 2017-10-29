@@ -43,6 +43,7 @@ public class DBHelper extends SQLiteOpenHelper{
     public static final String RECORDTABLE_COLLUM_MONTH="month";
     public static final String RECORDTABLE_COLLUM_YEAR="year";
     public static final String RECORDTABLE_COLLUM_ODD="odd";
+    public static final String RECORDTABLE_COLLUM_DEBT="debt";
     public static final String RECORDTABLE_COLLUM_CREATEDDATE="createdDate";
     public static final String RECORDTABLE_COLLUM_USERNAME="username";
 
@@ -175,19 +176,50 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     //3. TABLE LIST MANAGEMENT:
+
+    public RecordTable getTablebyMonthYear(String[] monthAndYear,String username){
+        RecordTable table = null;
+        String[] agrs = {monthAndYear[0],monthAndYear[1],username};
+        String query = "SELECT * FROM " + TABLE_RECORDTABLE + " WHERE "
+                        +RECORDTABLE_COLLUM_MONTH+"=? AND "
+                        +RECORDTABLE_COLLUM_YEAR+"=? AND "
+                        +RECORDTABLE_COLLUM_USERNAME+"=?";
+        Cursor cursor = myDataBase.rawQuery(query,agrs);
+        if(cursor.moveToFirst()){
+
+            int tableId = cursor.getInt(cursor.getColumnIndex(RECORDTABLE_COLLUM_TABLEID));
+
+            String month = cursor.getString(cursor.getColumnIndex(RECORDTABLE_COLLUM_MONTH));
+
+            int year = cursor.getInt(cursor.getColumnIndex(RECORDTABLE_COLLUM_YEAR));
+            double odd = cursor.getDouble(cursor.getColumnIndex(RECORDTABLE_COLLUM_ODD)) ;
+            double debt = cursor.getDouble(cursor.getColumnIndex(RECORDTABLE_COLLUM_DEBT));
+            long createdDate = cursor.getLong(cursor.getColumnIndex(RECORDTABLE_COLLUM_CREATEDDATE));
+            table = new RecordTable(tableId,month,year,username);
+            table.setDebt(debt);
+            table.setOdd(odd);
+            table.setCreatedDate(createdDate);
+        }
+        return table;
+
+    }
+
     public boolean isTableExisted(RecordTable table){
         String query = "SELECT * FROM " +TABLE_RECORDTABLE +" WHERE "
                         + RECORDTABLE_COLLUM_MONTH+"=? AND "
-                        + RECORDTABLE_COLLUM_YEAR +"=?";
-        String[] agrs = {table.getMonth(),String.valueOf(table.getYear())};
+                        + RECORDTABLE_COLLUM_YEAR +"=? AND "
+                        +RECORDTABLE_COLLUM_USERNAME+"=?";
+        String[] agrs = {table.getMonth(),String.valueOf(table.getYear()),table.getUsername()};
         Cursor cursor = myDataBase.rawQuery(query,agrs);
         return cursor.moveToNext(); //If cursor null return false.
     }
+
     public boolean removeTable(RecordTable table){
 
         int result = myDataBase.delete(TABLE_RECORDTABLE,RECORDTABLE_COLLUM_TABLEID+"=?",new String[]{String.valueOf(table.getTableId())});
         return result >0;
     }
+
     public boolean addTable(RecordTable table){
         if(!isTableExisted(table)) {
 
@@ -203,6 +235,7 @@ public class DBHelper extends SQLiteOpenHelper{
         }
         return false;
     }
+
     public List<RecordTable> getAllRecordTableByUser(String username){
         String query = "SELECT * FROM "+TABLE_RECORDTABLE + " WHERE "+RECORDTABLE_COLLUM_USERNAME+"=?"+
                        "ORDER BY "+RECORDTABLE_COLLUM_YEAR + " DESC";
@@ -220,10 +253,12 @@ public class DBHelper extends SQLiteOpenHelper{
 
                    int year = cursor.getInt(cursor.getColumnIndex(RECORDTABLE_COLLUM_YEAR));
                    double odd = cursor.getDouble(cursor.getColumnIndex(RECORDTABLE_COLLUM_ODD)) ;
+                   double debt = cursor.getDouble(cursor.getColumnIndex(RECORDTABLE_COLLUM_DEBT));
                    long createdDate = cursor.getLong(cursor.getColumnIndex(RECORDTABLE_COLLUM_CREATEDDATE));
 
                    RecordTable table = new RecordTable(tableId,month,year,username);
                    table.setOdd(odd);
+                   table.setDebt(debt);
                    table.setCreatedDate(createdDate);
                    tableList.add(table);
 

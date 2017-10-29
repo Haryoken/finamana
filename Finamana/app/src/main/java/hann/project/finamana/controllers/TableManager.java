@@ -23,6 +23,9 @@ public class TableManager implements ManageRecord {
 
 
     //TABLE INFO MANAGEMENT
+    public RecordTable findTableByMonthYear(String[] monthAndYear,String username){
+        return helper.getTablebyMonthYear(monthAndYear,username);
+    }
     public boolean updateTableOdd(RecordTable table){
         return helper.updateTableOdd(table);
     }
