@@ -23,7 +23,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".FinancialManagementActivity" />
         <activity android:name=".ReportActivity" />
-        <activity android:name=".StatiticsActivity" />
+        <activity android:name=".StatisticsActivity" />
         <activity android:name=".AddTableActivity" />
         <activity android:name=".TableDetailsActivity" />
         <activity android:name=".AddRecordActivity" />

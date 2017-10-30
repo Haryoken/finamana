@@ -148,13 +148,13 @@ public class ReportActivity extends AppCompatActivity {
             //COLOR SETTING
             txtRevenue.setTextColor(Color.rgb(100,150,100));
             txtExpense.setTextColor(Color.RED);
-            if(monthTable.getOdd() > 0){
+            if(netIncome > 0){
                 txtNetIncome.setTextColor(Color.rgb(100,150,100));
             }else{
                 txtNetIncome.setTextColor(Color.RED);
             }
             txtDebt.setTextColor(Color.rgb(219,112,49));
-            if(monthTable.getOdd() > monthTable.getDebt()){
+            if(netIncome > debt){
                 txtBalance.setTextColor(Color.rgb(100,150,100));
             }else{
                 txtBalance.setTextColor(Color.RED);

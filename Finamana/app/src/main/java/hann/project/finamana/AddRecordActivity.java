@@ -91,7 +91,7 @@ public class AddRecordActivity extends AppCompatActivity {
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         recordDate.setText(dateFormatter.format(new Date()));
         rdgMoney.check(R.id.rdRevenue);
-        final Record.CATEGORY[] earnCategories = {Record.CATEGORY.SALARY,Record.CATEGORY.OTHER,Record.CATEGORY.DEBT};
+        final Record.CATEGORY[] earnCategories = {Record.CATEGORY.SALARY,Record.CATEGORY.OTHER,Record.CATEGORY.DEBT, Record.CATEGORY.PROFIT};
 
         final Record.CATEGORY[] payCategories = {Record.CATEGORY.FOOD,Record.CATEGORY.BEVERAGE,Record.CATEGORY.FUEL
                                          ,Record.CATEGORY.OUTFIT,Record.CATEGORY.SHOPPING,Record.CATEGORY.ENTERTAINMENT

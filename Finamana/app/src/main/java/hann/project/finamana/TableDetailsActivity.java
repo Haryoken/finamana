@@ -167,7 +167,7 @@ public class TableDetailsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         TableListManager manager = new TableListManager(TableDetailsActivity.this);
-                        if(manager.removeTableFromList(table)){
+                        if(manager.removeTableFromList(table)){ //TODO REMOVE ALL RECORD IN THIS TABLE
                             Intent toTableListIntent = new Intent(TableDetailsActivity.this, FinancialManagementActivity.class);
                             startActivity(toTableListIntent);
                             Toast.makeText(TableDetailsActivity.this," Table has been successfully removed.",Toast.LENGTH_SHORT).show();

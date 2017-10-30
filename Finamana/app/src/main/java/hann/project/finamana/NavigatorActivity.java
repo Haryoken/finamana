@@ -101,7 +101,7 @@ public class NavigatorActivity extends AppCompatActivity {
                         startActivity(toReportIntent);
                         break;
                     case STATITICS:
-                        Intent toStatiticsIntent = new Intent(NavigatorActivity.this,StatiticsActivity.class);
+                        Intent toStatiticsIntent = new Intent(NavigatorActivity.this,StatisticsActivity.class);
                         startActivity(toStatiticsIntent);
                         break;
                 }

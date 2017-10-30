@@ -9,7 +9,7 @@ import java.sql.Date;
 
 
 public class Record implements Serializable {
-    public enum CATEGORY{FOOD,BEVERAGE,FUEL,OUTFIT,SHOPPING,ENTERTAINMENT,SALARY,OTHER,DEBT,DEBT_PAY};
+    public enum CATEGORY{FOOD,BEVERAGE,FUEL,OUTFIT,SHOPPING,ENTERTAINMENT,SALARY,PROFIT,OTHER,DEBT,DEBT_PAY};
 
     //FIELDS
 
@@ -119,6 +119,20 @@ public class Record implements Serializable {
                 return CATEGORY.DEBT;
             case "DEBT_PAY":
                 return CATEGORY.DEBT_PAY;
+            case "PROFIT":
+                return CATEGORY.PROFIT;
+        }
+    }
+    public static boolean isEarnCATEGORY(CATEGORY category){
+        switch (category){
+            default:
+                return false;
+            case SALARY:
+                return true;
+            case DEBT:
+                return true;
+            case PROFIT:
+                return true;
         }
     }
 }

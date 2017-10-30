@@ -49,6 +49,7 @@
                 android:text="Not recorded yet"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="true"
+                android:textColor="@color/blue_smoke"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
