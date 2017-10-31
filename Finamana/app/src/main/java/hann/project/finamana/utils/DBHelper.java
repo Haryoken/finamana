@@ -80,6 +80,15 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
     //4. TABLE MANAGEMENT:
+    public boolean removeRecordByTableId(RecordTable table){
+       int recordCount = myDataBase.rawQuery("SELECT * FROM "+TABLE_RECORD+" WHERE " +RECORD_COLLUM_TABLEID +"=?",new String[]{String.valueOf(table.getTableId())}).getCount();
+       int result = myDataBase.delete(TABLE_RECORD,RECORD_COLLUM_TABLEID+"=?",new String[]{String.valueOf(table.getTableId())});
+        if(result == recordCount){
+            return true;
+        }
+        return false;
+    }
+
     public boolean updateTableOdd(RecordTable table){
         ContentValues values = new ContentValues();
         values.put("odd",table.getOdd());

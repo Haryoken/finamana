@@ -41,7 +41,7 @@ public class TableListManager {
 
     }
     public boolean removeTableFromList(RecordTable table){
-        return helper.removeTable(table);
+        return helper.removeTable(table) && helper.removeRecordByTableId(table);
     }
 
 }
