@@ -39,14 +39,13 @@ public class BackupHelper {
         File dbFile = fileList[0];
         //File dbFile = new File(dataPath);
 
-        if(sdCard.exists()){
-            copyFile(dbFile.getAbsolutePath(),sdCard);
-            return true;
-        }
 
-        return false;
+            return copyFile(dbFile.getAbsolutePath(),sdCard);
+
+
+
     }
-    private void copyFile(String src, File destination) {
+    private boolean copyFile(String src, File destination) {
         String backUpFile = "FinamanaDB.db";
         File srcFile = new File(src);
         File desFile = new File(destination,backUpFile);
@@ -60,12 +59,12 @@ public class BackupHelper {
         boolean isdir2 = srcFile.isDirectory();
         boolean isdir = desFile.exists();
         try{
-            verifyStoragePermissions(activity);
+
             FileChannel srcChannel = new FileInputStream(srcFile).getChannel();
             FileChannel desChannel = new FileInputStream(desFile).getChannel();
             try{
-
                 desChannel.transferFrom(srcChannel,0,srcChannel.size());
+                return true;
             }catch(IOException e){
 
             }finally {
@@ -74,26 +73,11 @@ public class BackupHelper {
             }
         }catch(FileNotFoundException e) {
             Log.d("MainActivity", "copyFile: FileNotFoundException: "+e.getMessage());
+            return false;
 
         }catch (IOException e){
-
-        }
-    }
-    // Checks if app has permission to write to device storage
-    private static void verifyStoragePermissions(Activity activity) {
-        // Check if we have write permission
-        boolean permission = checkPermissions(activity);
-        // Not have permission so prompt the user
-        if(permission == false){
-            ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
-        }
-    }
-
-    private static boolean checkPermissions(Activity activity) {
-        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permission != PackageManager.PERMISSION_GRANTED) {
             return false;
         }
-        return true;
+        return false;
     }
 }
