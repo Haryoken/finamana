@@ -67,8 +67,6 @@ public class RegisterActivity extends AppCompatActivity {
         if(isUserExisted){
             txtUsernameError.setText("Username is existed.");
             result = false;
-        }else{
-            txtUsernameError.setText("");
         }
         //password validate
         if(password.equals("") || username.length() > 16 ||username.length() < 6){
