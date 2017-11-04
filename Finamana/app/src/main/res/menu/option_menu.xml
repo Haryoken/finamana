@@ -8,6 +8,9 @@
         android:id="@+id/menuBackup"
         android:title="Backup Data" />
     <item
+        android:id="@+id/menuImportData"
+        android:title="Import Data" />
+    <item
         android:id="@+id/menuLogout"
         android:title="Logout" />
 </menu>

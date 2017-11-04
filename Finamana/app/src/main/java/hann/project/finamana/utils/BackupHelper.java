@@ -29,26 +29,42 @@ public class BackupHelper {
     public BackupHelper(Activity activity) {
         this.activity = activity;
     }
-    public boolean processBackup(){
-        //1. GET SD Card PATH
+    public boolean processImport(){
+//1. GET SD Card PATH
+        String dataBaseFileName = "FinamanaDB.db";
         File sdCard = Environment.getExternalStorageDirectory();
         File data = Environment.getDataDirectory();
-        String dataPath = "data/hann.project.finamana/databases"; // /databases
-        File dataDir = new File(data,dataPath);
-        File[] fileList = dataDir.listFiles();
-        File dbFile = fileList[0];
-        //File dbFile = new File(dataPath);
 
+        String databasePath = "data/hann.project.finamana/databases"; // /databases
+        File databaseDirectory = new File(data,databasePath);
 
-            return copyFile(dbFile.getAbsolutePath(),sdCard);
-
-
+        return copyFile(sdCard.getAbsolutePath()+"/"+dataBaseFileName,databaseDirectory);
 
     }
-    private boolean copyFile(String src, File destination) {
-        String backUpFile = "FinamanaDB.db";
-        File srcFile = new File(src);
-        File desFile = new File(destination,backUpFile);
+    public boolean processBackup(){
+        //1. GET SD Card PATH
+        String dataBaseFileName = "FinamanaDB.db";
+        File sdCard = Environment.getExternalStorageDirectory();
+        File data = Environment.getDataDirectory();
+
+        String dataPath = "data/hann.project.finamana/databases"; // /databases
+        File dataDir = new File(data,dataPath);
+
+        File[] fileList = dataDir.listFiles();
+        File dbFile = null;
+        for(File file:fileList){
+            if(file.getName().equals(dataBaseFileName)){
+                dbFile = file;
+                return copyFile(dbFile.getAbsolutePath(),sdCard);
+            }
+        }
+            return false;
+    }
+    private boolean copyFile(String sourcePath, File destination) {
+        verifyStoragePermissions(activity);
+        String dataFile = "FinamanaDB.db";
+        File srcFile = new File(sourcePath);
+        File desFile = new File(destination,dataFile);
         if(!desFile.exists()) {
             try {
                 desFile.createNewFile();
@@ -56,12 +72,10 @@ public class BackupHelper {
                 Log.d("BackUpHelper","IOException: "+e.getMessage());
             }
         }
-        boolean isdir2 = srcFile.isDirectory();
-        boolean isdir = desFile.exists();
         try{
 
             FileChannel srcChannel = new FileInputStream(srcFile).getChannel();
-            FileChannel desChannel = new FileInputStream(desFile).getChannel();
+            FileChannel desChannel = new FileOutputStream(desFile).getChannel();
             try{
                 desChannel.transferFrom(srcChannel,0,srcChannel.size());
                 return true;
@@ -79,5 +93,22 @@ public class BackupHelper {
             return false;
         }
         return false;
+    }
+
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        boolean permission = checkPermissions(activity);
+        // Not have permission so prompt the user
+        if(!permission){
+            ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
+        }
+    }
+
+    public static boolean checkPermissions(Activity activity) {
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            return false;
+        }
+        return true;
     }
 }

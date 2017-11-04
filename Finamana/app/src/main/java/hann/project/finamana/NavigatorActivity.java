@@ -43,16 +43,24 @@ public class NavigatorActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        BackupHelper buHelper = new BackupHelper(NavigatorActivity.this);
         switch (item.getItemId()) {
             case R.id.menuSetting:
                 //
                 return true;
             case R.id.menuBackup:
-                BackupHelper buHelper = new BackupHelper(NavigatorActivity.this);
+
                 if(buHelper.processBackup()){
                     Toast.makeText(this,"Your Data has been Sucessfully Backup.",Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(this,"Backup failed.",Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            case R.id.menuImportData:
+                if(buHelper.processImport()){
+                    Toast.makeText(this,"Sucessfully Imported.",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(this,"Import failed.",Toast.LENGTH_SHORT).show();
                 }
                 return true;
             case R.id.menuLogout:
