@@ -37,7 +37,7 @@ public class AddRecordActivity extends AppCompatActivity {
     TableManager manager;
     int tableId;
     EditText recordDate;
-
+    Intent fromTableDetialsIntent;
     SimpleDateFormat dateFormatter;
     //private DatePicker datePicker;
     private Calendar calendar;
@@ -49,7 +49,7 @@ public class AddRecordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_record);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent fromTableDetialsIntent = getIntent();
+        fromTableDetialsIntent = getIntent();
         tableId = fromTableDetialsIntent.getExtras().getInt("tableId");
 
 
@@ -76,11 +76,7 @@ public class AddRecordActivity extends AppCompatActivity {
         moneyAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-
-                    if (Double.parseDouble(moneyAmount.getText().toString()) == 0) {
-                        moneyAmount.setError("Oh common!! No transaction equals 0.");
-                    }
-
+                    validateInput();
             }
         });
 
@@ -153,22 +149,25 @@ public class AddRecordActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.btnDone:
-                time = calendar.getTimeInMillis(); // For Sorting
-                Record record = prepareRecord();
-                if(manager.addRecordToTable(record)){
-
-                    Toast.makeText(this,"Successfully added a new record to table.",Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(this,"Failed to add a new record to table.",Toast.LENGTH_SHORT).show();
-                }
-                Intent backToTableDetailsIntent = new Intent(AddRecordActivity.this,TableDetailsActivity.class);
-                backToTableDetailsIntent.putExtra("tableId",tableId);
-                startActivity(backToTableDetailsIntent);
-                return true;
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.btnDone:
+                if(validateInput()) {
+                    time = calendar.getTimeInMillis(); // For Sorting
+                    Record record = prepareRecord();
+                    if (manager.addRecordToTable(record)) {
+
+                        Toast.makeText(this, "Successfully added a new record to table.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Failed to add a new record to table.", Toast.LENGTH_SHORT).show();
+                    }
+                    Intent backToTableDetailsIntent = new Intent(AddRecordActivity.this, TableDetailsActivity.class);
+                    backToTableDetailsIntent.putExtra("tableId", tableId);
+                    startActivity(backToTableDetailsIntent);
+                    return true;
+                }
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -200,10 +199,32 @@ public class AddRecordActivity extends AppCompatActivity {
         }
         return record;
     }
-    private boolean validateRecord(Record record){
-        String description = record.getDescription();
-        if(description== null && description.equals("")){
+    private boolean validateInput(){
+        if (moneyAmount.getText().toString().equals("")) {
+            moneyAmount.setError("Oh common!! No transaction equals 0.");
             return false;
+        }
+        if (moneyAmount.getText().toString().equals("0")) {
+            moneyAmount.setError("Hey hey!! Transaction must have a change on money.");
+            return false;
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+
+            Date date = formatter.parse(recordDate.getText().toString());
+            formatter = new SimpleDateFormat("MMMM");
+            String inputMonth = formatter.format(date);
+            String tableMonth = fromTableDetialsIntent.getExtras().getString("month","");
+            if(!inputMonth.equals(tableMonth)){
+                TextView errDateError = (TextView)findViewById(R.id.errDateError);
+                errDateError.setText("Month of this table is "+tableMonth);
+                return false;
+            }else{
+                TextView errDateError = (TextView)findViewById(R.id.errDateError);
+                errDateError.setText("");
+            }
+        }catch (ParseException e){
+            Log.d("RecordDetailsActivity","ParseException: "+e.getMessage() );
         }
         return true;
     }

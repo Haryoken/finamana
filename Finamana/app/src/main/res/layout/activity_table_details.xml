@@ -300,7 +300,7 @@
             android:orientation="vertical">
 
             <ListView
-                android:id="@+id/listRecords"
+                android:id="@+id/lvRecord"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,18 +33,19 @@ import hann.project.finamana.entities.Record;
 import hann.project.finamana.utils.BackupHelper;
 
 public class RecordDetailsActivity extends AppCompatActivity {
-    EditText description;
-    Spinner spinnerCategory;
-    EditText moneyAmount;
-    RadioGroup rdgMoney;
-    RadioButton rdRevenue;
-    RadioButton rdExpense;
-    TableManager manager;
-    Record record;
-    EditText recordDate;
-    TextView btnDeleteRecord;
+    private EditText description;
+    private Spinner spinnerCategory;
+    private EditText moneyAmount;
+    private RadioGroup rdgMoney;
+    private RadioButton rdRevenue;
+    private RadioButton rdExpense;
+    private TableManager manager;
+    private Record record;
+    private EditText recordDate;
+    private TextView btnDeleteRecord;
 
-    SimpleDateFormat dateFormatter;
+    private Intent fromTableDetialsIntent;
+    private SimpleDateFormat dateFormatter;
     //private DatePicker datePicker;
     private Calendar calendar;
     private int year, month, day;
@@ -54,9 +56,10 @@ public class RecordDetailsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent fromTableDetialsIntent = getIntent();
+
+        fromTableDetialsIntent = getIntent();
         record = (Record)fromTableDetialsIntent.getExtras().getSerializable("record");
-        int recordId = record.getRecordId();
+
 
         manager = new TableManager(this);
         //INIT SECTION
@@ -80,24 +83,18 @@ public class RecordDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+
         moneyAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-
-                if (Double.parseDouble(moneyAmount.getText().toString()) == 0) {
-                    moneyAmount.setError("Oh common!! No transaction equals 0.");
-                }
-                if (moneyAmount.getText().toString().equals("")) {
-                    moneyAmount.setError("Hey hey!! Transaction must have a change on money.");
-                }
-
+                validateInput();
             }
         });
 
         //SETTING SECTION
-        recordDate.setEnabled(false);
-        description.setText(record.getDescription());
 
+        description.setText(record.getDescription());
+        recordDate.setEnabled(false);
         if(record.getRevenue() > 0){
             rdRevenue.setChecked(true);
             moneyAmount.setText(String.valueOf(record.getRevenue()));
@@ -179,14 +176,16 @@ public class RecordDetailsActivity extends AppCompatActivity {
                 onBackPressed();
                 return true;
             case R.id.btnSave:
-                Record editedRecord = prepareUpdateRecord();
-                if(manager.updateRecord(editedRecord)){
-                    Intent toTableListIntent = new Intent(RecordDetailsActivity.this, TableDetailsActivity.class);
-                    toTableListIntent.putExtra("tableId",record.getTableId());
-                    startActivity(toTableListIntent);
-                    Toast.makeText(RecordDetailsActivity.this,"Updated successfully.",Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(RecordDetailsActivity.this,"Update failed.",Toast.LENGTH_SHORT).show();
+                if(validateInput()) {
+                    Record editedRecord = prepareUpdateRecord();
+                    if (manager.updateRecord(editedRecord)) {
+                        Intent toTableListIntent = new Intent(RecordDetailsActivity.this, TableDetailsActivity.class);
+                        toTableListIntent.putExtra("tableId", record.getTableId());
+                        startActivity(toTableListIntent);
+                        Toast.makeText(RecordDetailsActivity.this, "Updated successfully.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(RecordDetailsActivity.this, "Update failed.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             default:
                 return super.onOptionsItemSelected(item);
@@ -241,5 +240,33 @@ public class RecordDetailsActivity extends AppCompatActivity {
         }
         return editedRecord;
     }
+    private boolean validateInput(){
+        if (moneyAmount.getText().toString().equals("")) {
+            moneyAmount.setError("Oh common!! No transaction equals 0.");
+            return false;
+        }
+        if (moneyAmount.getText().toString().equals("0")) {
+            moneyAmount.setError("Hey hey!! Transaction must have a change on money.");
+            return false;
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
 
+            Date date = formatter.parse(recordDate.getText().toString());
+            formatter = new SimpleDateFormat("MMMM");
+            String inputMonth = formatter.format(date);
+            String tableMonth = fromTableDetialsIntent.getExtras().getString("month","");
+            if(!inputMonth.equals(tableMonth)){
+                TextView errDateError = (TextView)findViewById(R.id.errDateError);
+                errDateError.setText("Month of this table is "+tableMonth);
+                return false;
+            }else{
+                TextView errDateError = (TextView)findViewById(R.id.errDateError);
+                errDateError.setText("");
+            }
+        }catch (ParseException e){
+            Log.d("RecordDetailsActivity","ParseException: "+e.getMessage() );
+        }
+        return true;
+    }
 }

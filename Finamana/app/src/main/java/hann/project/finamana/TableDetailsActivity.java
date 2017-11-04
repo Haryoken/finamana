@@ -61,6 +61,7 @@ public class TableDetailsActivity extends AppCompatActivity {
             case R.id.btnAddRecord:
                 Intent toAddRecordIntent = new Intent(TableDetailsActivity.this,AddRecordActivity.class);
                 toAddRecordIntent.putExtra("tableId",table.getTableId());
+                toAddRecordIntent.putExtra("month",table.getMonth());
                 startActivity(toAddRecordIntent);
                 return true;
             case android.R.id.home:
@@ -98,7 +99,7 @@ public class TableDetailsActivity extends AppCompatActivity {
         totalRevenue = (TextView)findViewById(R.id.txtTotalRevenues);
         totalExpense = (TextView)findViewById(R.id.txtTotalExpense);
         btnDeleteTable = (TextView)findViewById(R.id.btnDeleteTable);
-
+        lvRecord = (ListView) findViewById(R.id.lvRecord);
 
         //SET VALUES FOR VIEW COMPONENTS
         owner.setText(new NavigatorManager().getFullname(username,this));
@@ -138,13 +139,14 @@ public class TableDetailsActivity extends AppCompatActivity {
 
 
         if(recordList!= null) {
-            lvRecord = (ListView) findViewById(R.id.listRecords);
+
             lvRecord.setAdapter(new RecordAdapter(this, recordList));
             lvRecord.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     Intent toRecordListActivity = new Intent(TableDetailsActivity.this,RecordDetailsActivity.class);
                     toRecordListActivity.putExtra("record",recordList.get(position));
+                    toRecordListActivity.putExtra("month",table.getMonth());
 
                     startActivity(toRecordListActivity);
                 }
