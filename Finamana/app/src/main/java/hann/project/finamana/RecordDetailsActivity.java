@@ -241,11 +241,11 @@ public class RecordDetailsActivity extends AppCompatActivity {
         return editedRecord;
     }
     private boolean validateInput(){
-        if (moneyAmount.getText().toString().equals("")) {
+        if (moneyAmount.getText().toString().equals("0")) {
             moneyAmount.setError("Oh common!! No transaction equals 0.");
             return false;
         }
-        if (moneyAmount.getText().toString().equals("0")) {
+        if (moneyAmount.getText().toString().equals("")) {
             moneyAmount.setError("Hey hey!! Transaction must have a change on money.");
             return false;
         }
@@ -253,12 +253,14 @@ public class RecordDetailsActivity extends AppCompatActivity {
         try {
 
             Date date = formatter.parse(recordDate.getText().toString());
-            formatter = new SimpleDateFormat("MMMM");
-            String inputMonth = formatter.format(date);
+            formatter = new SimpleDateFormat("MMMM-yyyy");
+            String inputDateMonth = formatter.format(date);
             String tableMonth = fromTableDetialsIntent.getExtras().getString("month","");
-            if(!inputMonth.equals(tableMonth)){
+            int tableYear = fromTableDetialsIntent.getExtras().getInt("year",0);
+
+            if(!inputDateMonth.equals(tableMonth+"-"+tableYear)){
                 TextView errDateError = (TextView)findViewById(R.id.errDateError);
-                errDateError.setText("Month of this table is "+tableMonth);
+                errDateError.setText("This table is "+tableMonth+"_"+tableYear);
                 return false;
             }else{
                 TextView errDateError = (TextView)findViewById(R.id.errDateError);

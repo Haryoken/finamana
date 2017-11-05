@@ -62,6 +62,7 @@ public class TableDetailsActivity extends AppCompatActivity {
                 Intent toAddRecordIntent = new Intent(TableDetailsActivity.this,AddRecordActivity.class);
                 toAddRecordIntent.putExtra("tableId",table.getTableId());
                 toAddRecordIntent.putExtra("month",table.getMonth());
+                toAddRecordIntent.putExtra("year",table.getYear());
                 startActivity(toAddRecordIntent);
                 return true;
             case android.R.id.home:
@@ -147,7 +148,7 @@ public class TableDetailsActivity extends AppCompatActivity {
                     Intent toRecordListActivity = new Intent(TableDetailsActivity.this,RecordDetailsActivity.class);
                     toRecordListActivity.putExtra("record",recordList.get(position));
                     toRecordListActivity.putExtra("month",table.getMonth());
-
+                    toRecordListActivity.putExtra("year",table.getYear());
                     startActivity(toRecordListActivity);
                 }
             });

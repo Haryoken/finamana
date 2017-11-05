@@ -200,25 +200,28 @@ public class AddRecordActivity extends AppCompatActivity {
         return record;
     }
     private boolean validateInput(){
-        if (moneyAmount.getText().toString().equals("")) {
-            moneyAmount.setError("Oh common!! No transaction equals 0.");
-            return false;
-        }
+        boolean result = true;
         if (moneyAmount.getText().toString().equals("0")) {
+            moneyAmount.setError("Oh common!! No transaction equals 0.");
+            result = false;
+        }
+        if (moneyAmount.getText().toString().equals("")) {
             moneyAmount.setError("Hey hey!! Transaction must have a change on money.");
-            return false;
+            result = false;
         }
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         try {
 
             Date date = formatter.parse(recordDate.getText().toString());
-            formatter = new SimpleDateFormat("MMMM");
-            String inputMonth = formatter.format(date);
+            formatter = new SimpleDateFormat("MMMM-yyyy");
+            String inputDateMonth = formatter.format(date);
             String tableMonth = fromTableDetialsIntent.getExtras().getString("month","");
-            if(!inputMonth.equals(tableMonth)){
+            int tableYear = fromTableDetialsIntent.getExtras().getInt("year",0);
+
+            if(!inputDateMonth.equals(tableMonth+"-"+tableYear)){
                 TextView errDateError = (TextView)findViewById(R.id.errDateError);
-                errDateError.setText("Month of this table is "+tableMonth);
-                return false;
+                errDateError.setText("This table is "+tableMonth+"_"+tableYear);
+                result = false;
             }else{
                 TextView errDateError = (TextView)findViewById(R.id.errDateError);
                 errDateError.setText("");
@@ -226,6 +229,6 @@ public class AddRecordActivity extends AppCompatActivity {
         }catch (ParseException e){
             Log.d("RecordDetailsActivity","ParseException: "+e.getMessage() );
         }
-        return true;
+        return result;
     }
 }
